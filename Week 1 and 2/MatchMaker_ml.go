@@ -32,9 +32,9 @@ type question struct {
 //question 1
 func questionOne() question {
 	var answer float64
-	question := question{question: "Is Steely Dan the best band ever (1-5)?", answer: 0, idealAnswer: 5, answerDifference: 0}
-	fmt.Println(question.question)
-	fmt.Scanf("%f", &answer)
+	question := question{question: "Is Steely Dan the best band ever (1-5)?\n", answer: 0, idealAnswer: 5, answerDifference: 0}
+	fmt.Printf(question.question)
+	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
 	return question
 }
@@ -42,9 +42,9 @@ func questionOne() question {
 //question 2
 func questionTwo() question {
 	var answer float64
-	question := question{question: "Is broccoli the best vegetable (1-5)?", answer: 0, idealAnswer: 4, answerDifference: 0}
-	fmt.Println(question.question)
-	fmt.Scanf("%f", &answer)
+	question := question{question: "Is broccoli the best vegetable (1-5)?\n", answer: 0, idealAnswer: 4, answerDifference: 0}
+	fmt.Printf(question.question)
+	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
 	return question
 }
@@ -52,9 +52,9 @@ func questionTwo() question {
 //question 3
 func questionThree() question {
 	var answer float64
-	question := question{question: "Are you a fan of candy corn (1-5)?", answer: 0, idealAnswer: 1, answerDifference: 0}
-	fmt.Println(question.question)
-	fmt.Scanf("%f", &answer)
+	question := question{question: "Are you a fan of candy corn (1-5)?\n", answer: 0, idealAnswer: 1, answerDifference: 0}
+	fmt.Printf(question.question)
+	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
 	return question
 }
@@ -62,9 +62,9 @@ func questionThree() question {
 //question 4
 func questionFour() question {
 	var answer float64
-	question := question{question: "Hiking is the best activity (1-5)?", answer: 0, idealAnswer: 3, answerDifference: 0}
-	fmt.Println(question.question)
-	fmt.Scanf("%f", &answer)
+	question := question{question: "Hiking is the best activity (1-5)?\n", answer: 0, idealAnswer: 3, answerDifference: 0}
+	fmt.Printf(question.question)
+	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
 	return question
 }
@@ -72,9 +72,9 @@ func questionFour() question {
 //question 5
 func questionFive() question {
 	var answer float64
-	question := question{question: "Milk chocolate is the best type of chocolate {1-5)?", answer: 0, idealAnswer: 2, answerDifference: 0}
-	fmt.Println(question.question)
-	fmt.Scanf("%f", &answer)
+	question := question{question: "Milk chocolate is the best type of chocolate (1-5)?\n", answer: 0, idealAnswer: 2, answerDifference: 0}
+	fmt.Printf(question.question)
+	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
 	return question
 }
@@ -83,9 +83,11 @@ func questionFive() question {
 func printVerdict(questionOne question, questionTwo question, questionThree question, questionFour question, questionFive question) {
 	var verdict float64 = questionOne.answerDifference + questionTwo.answerDifference + questionThree.answerDifference + questionFour.answerDifference + questionFive.answerDifference
 	list := [5]question{questionOne, questionTwo, questionThree, questionFour, questionFive}
+	fmt.Printf("**************************************\n")
 	for i := 0; i < 5; i++ {
-		fmt.Printf("The ideal answer for %s was %f making the difference %f.\n", list[i].question, list[i].idealAnswer, list[i].answerDifference)
+		fmt.Printf("The ideal answer for %s was %.1f making the difference %.1f.\n", list[i].question, list[i].idealAnswer, list[i].answerDifference)
 	}
+	fmt.Printf("**************************************\n")
 	fmt.Printf("Your final score was %f.\n", verdict)
 
 	if 0 >= verdict || verdict <= 5 {
