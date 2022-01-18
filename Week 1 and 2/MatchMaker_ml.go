@@ -23,16 +23,41 @@ func footer() {
 
 //creating a question object
 type question struct {
-	question         string
-	answer           float64
-	idealAnswer      float64
-	answerDifference float64
+	question         string  //the question
+	answer           float64 //answer, from the user
+	idealAnswer      float64 //my ideal answer
+	answerDifference float64 //the difference between mine and user's answer
+	weight           float64 //how important this is to me
 }
+
+const (
+	QUESTION_ONE_IDEAL  float64 = 5
+	QUESTION_ONE_WEIGHT float64 = 3
+	QUESTION_ONE_RANGE  float64 = 0
+
+	QUESTION_TWO_IDEAL  float64 = 4
+	QUESTION_TWO_WEIGHT float64 = 2
+	QUESTION_TWO_RANGE  float64 = 0
+
+	QUESTION_THREE_IDEAL  float64 = 1
+	QUESTION_THREE_WEIGHT float64 = 3
+	QUESTION_THREE_RANGE  float64 = 0
+
+	QUESTION_FOUR_IDEAL  float64 = 3
+	QUESTION_FOUR_WEIGHT float64 = 2
+	QUESTION_FOUR_RANGE  float64 = 0
+
+	QUESTION_FIVE_IDEAL  float64 = 2
+	QUESTION_FIVE_WEIGHT float64 = 1
+	QUESTION_FIVE_RANGE  float64 = 0
+)
 
 //question 1
 func questionOne() question {
 	var answer float64
-	question := question{question: "Is Steely Dan the best band ever (1-5)?\n", answer: 0, idealAnswer: 5, answerDifference: 0}
+	question := question{question: "Is Steely Dan the best band ever (1-5)?\n",
+		answer: 0, idealAnswer: QUESTION_ONE_IDEAL, answerDifference: QUESTION_ONE_RANGE,
+		weight: QUESTION_ONE_WEIGHT}
 	fmt.Printf(question.question)
 	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
@@ -42,7 +67,9 @@ func questionOne() question {
 //question 2
 func questionTwo() question {
 	var answer float64
-	question := question{question: "Is broccoli the best vegetable (1-5)?\n", answer: 0, idealAnswer: 4, answerDifference: 0}
+	question := question{question: "Is broccoli the best vegetable (1-5)?\n",
+		answer: 0, idealAnswer: QUESTION_TWO_IDEAL, answerDifference: QUESTION_TWO_RANGE,
+		weight: QUESTION_TWO_WEIGHT}
 	fmt.Printf(question.question)
 	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
@@ -52,7 +79,9 @@ func questionTwo() question {
 //question 3
 func questionThree() question {
 	var answer float64
-	question := question{question: "Are you a fan of candy corn (1-5)?\n", answer: 0, idealAnswer: 1, answerDifference: 0}
+	question := question{question: "Are you a fan of candy corn (1-5)?\n",
+		answer: 0, idealAnswer: QUESTION_THREE_IDEAL, answerDifference: QUESTION_THREE_RANGE,
+		weight: QUESTION_THREE_WEIGHT}
 	fmt.Printf(question.question)
 	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
@@ -62,7 +91,9 @@ func questionThree() question {
 //question 4
 func questionFour() question {
 	var answer float64
-	question := question{question: "Hiking is the best activity (1-5)?\n", answer: 0, idealAnswer: 3, answerDifference: 0}
+	question := question{question: "Hiking is the best activity (1-5)?\n",
+		answer: 0, idealAnswer: QUESTION_FOUR_IDEAL, answerDifference: QUESTION_FOUR_RANGE,
+		weight: QUESTION_FOUR_WEIGHT}
 	fmt.Printf(question.question)
 	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
@@ -72,7 +103,9 @@ func questionFour() question {
 //question 5
 func questionFive() question {
 	var answer float64
-	question := question{question: "Milk chocolate is the best type of chocolate (1-5)?\n", answer: 0, idealAnswer: 2, answerDifference: 0}
+	question := question{question: "Milk chocolate is the best type of chocolate (1-5)?\n",
+		answer: 0, idealAnswer: QUESTION_FIVE_IDEAL, answerDifference: QUESTION_FIVE_RANGE,
+		weight: QUESTION_FIVE_WEIGHT}
 	fmt.Printf(question.question)
 	fmt.Scanf("%f\n", &answer)
 	question.answerDifference = math.Abs(question.idealAnswer - answer)
@@ -81,20 +114,26 @@ func questionFive() question {
 
 //display answer also do some math and fancy printing techniques
 func printVerdict(questionOne question, questionTwo question, questionThree question, questionFour question, questionFive question) {
-	var verdict float64 = questionOne.answerDifference + questionTwo.answerDifference + questionThree.answerDifference + questionFour.answerDifference + questionFive.answerDifference
+	var verdict float64 = (questionOne.answerDifference * questionOne.weight) +
+		(questionTwo.answerDifference * questionTwo.weight) +
+		(questionThree.answerDifference * questionThree.weight) +
+		(questionFour.answerDifference * questionFour.weight) +
+		(questionFive.answerDifference * questionFive.weight)
+	score := 100 - verdict
 	list := [5]question{questionOne, questionTwo, questionThree, questionFour, questionFive}
-	fmt.Printf("**************************************\n")
 	for i := 0; i < 5; i++ {
-		fmt.Printf("The ideal answer for %s was %.1f making the difference %.1f.\n", list[i].question, list[i].idealAnswer, list[i].answerDifference)
+		fmt.Printf("************************************\n")
+		fmt.Printf("The compatibility score for \n%s was %.2f\n", list[i].question, list[i].answerDifference)
+		fmt.Printf("The weighted score is: %.2f\n", list[i].answerDifference*list[i].weight)
 	}
 	fmt.Printf("**************************************\n")
-	fmt.Printf("Your final score was %f.\n", verdict)
+	fmt.Printf("Your final score was %.2f.\n", score)
 
-	if 0 >= verdict || verdict <= 5 {
+	if score >= 90 && score <= 100 {
 		fmt.Printf("Let's get married!\n")
-	} else if 6 >= verdict || verdict <= 10 {
+	} else if score >= 70 && score <= 89 {
 		fmt.Printf("Let's go on a date!\n")
-	} else if verdict >= 11 {
+	} else if score <= 69 {
 		fmt.Printf("You're not the one for me.\n")
 	}
 }
