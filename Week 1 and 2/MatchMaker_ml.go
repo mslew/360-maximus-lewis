@@ -52,63 +52,67 @@ const (
 	QUESTION_FIVE_RANGE  float64 = 0
 )
 
+func validate(question question) question {
+	var answer float64
+	for {
+		fmt.Printf(question.question)
+		a, err := fmt.Scanf("%f", &answer)
+		if a == 0 || answer > 5 || answer < 1 || err != nil {
+			fmt.Printf("Please enter a valid number between 1 and 5.\n")
+		} else {
+			question.answer = answer
+			return question
+		}
+	}
+}
+
 //question 1
 func questionOne() question {
-	var answer float64
 	question := question{question: "Is Steely Dan the best band ever (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_ONE_IDEAL, answerDifference: QUESTION_ONE_RANGE,
 		weight: QUESTION_ONE_WEIGHT}
-	fmt.Printf(question.question)
-	fmt.Scanf("%f\n", &answer)
-	question.answerDifference = math.Abs(question.idealAnswer - answer)
+	validate(question)
+	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
 
 //question 2
 func questionTwo() question {
-	var answer float64
 	question := question{question: "Is broccoli the best vegetable (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_TWO_IDEAL, answerDifference: QUESTION_TWO_RANGE,
 		weight: QUESTION_TWO_WEIGHT}
-	fmt.Printf(question.question)
-	fmt.Scanf("%f\n", &answer)
-	question.answerDifference = math.Abs(question.idealAnswer - answer)
+	validate(question)
+	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
 
 //question 3
 func questionThree() question {
-	var answer float64
 	question := question{question: "Are you a fan of candy corn (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_THREE_IDEAL, answerDifference: QUESTION_THREE_RANGE,
 		weight: QUESTION_THREE_WEIGHT}
-	fmt.Printf(question.question)
-	fmt.Scanf("%f\n", &answer)
-	question.answerDifference = math.Abs(question.idealAnswer - answer)
+	validate(question)
+	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
 
 //question 4
 func questionFour() question {
-	var answer float64
 	question := question{question: "Hiking is the best activity (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_FOUR_IDEAL, answerDifference: QUESTION_FOUR_RANGE,
 		weight: QUESTION_FOUR_WEIGHT}
-	fmt.Printf(question.question)
-	fmt.Scanf("%f\n", &answer)
-	question.answerDifference = math.Abs(question.idealAnswer - answer)
+	validate(question)
+	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
 
 //question 5
 func questionFive() question {
-	var answer float64
 	question := question{question: "Milk chocolate is the best type of chocolate (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_FIVE_IDEAL, answerDifference: QUESTION_FIVE_RANGE,
 		weight: QUESTION_FIVE_WEIGHT}
-	fmt.Printf(question.question)
-	fmt.Scanf("%f\n", &answer)
-	question.answerDifference = math.Abs(question.idealAnswer - answer)
+	validate(question)
+	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
 
