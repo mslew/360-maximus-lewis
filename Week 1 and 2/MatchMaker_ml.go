@@ -6,6 +6,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strconv"
 )
 
 //header to start the program
@@ -30,6 +31,7 @@ type question struct {
 	weight           float64 //how important this is to me
 }
 
+//creating constants for questions
 const (
 	QUESTION_ONE_IDEAL  float64 = 5
 	QUESTION_ONE_WEIGHT float64 = 3
@@ -52,18 +54,23 @@ const (
 	QUESTION_FIVE_RANGE  float64 = 0
 )
 
+//validating user input
 func validate(question question) question {
-	var answer float64
+	var s string
+	var i int
+	fmt.Println(question.question)
 	for {
-		fmt.Printf(question.question)
-		a, err := fmt.Scanf("%f", &answer)
-		if a == 0 || answer > 5 || answer < 1 || err != nil {
-			fmt.Printf("Please enter a valid number between 1 and 5.\n")
+		_, err := fmt.Scan(&s)
+		i, err = strconv.Atoi(s)
+		if err != nil || i < 1 || i > 5 {
+			fmt.Println(("Enter a valid number between 1 and 5."))
+			fmt.Println(question.question)
 		} else {
-			question.answer = answer
-			return question
+			question.answer = float64(i)
+			break
 		}
 	}
+	return question
 }
 
 //question 1
@@ -71,7 +78,7 @@ func questionOne() question {
 	question := question{question: "Is Steely Dan the best band ever (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_ONE_IDEAL, answerDifference: QUESTION_ONE_RANGE,
 		weight: QUESTION_ONE_WEIGHT}
-	validate(question)
+	question = validate(question)
 	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
@@ -81,7 +88,7 @@ func questionTwo() question {
 	question := question{question: "Is broccoli the best vegetable (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_TWO_IDEAL, answerDifference: QUESTION_TWO_RANGE,
 		weight: QUESTION_TWO_WEIGHT}
-	validate(question)
+	question = validate(question)
 	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
@@ -91,7 +98,7 @@ func questionThree() question {
 	question := question{question: "Are you a fan of candy corn (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_THREE_IDEAL, answerDifference: QUESTION_THREE_RANGE,
 		weight: QUESTION_THREE_WEIGHT}
-	validate(question)
+	question = validate(question)
 	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
@@ -101,7 +108,7 @@ func questionFour() question {
 	question := question{question: "Hiking is the best activity (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_FOUR_IDEAL, answerDifference: QUESTION_FOUR_RANGE,
 		weight: QUESTION_FOUR_WEIGHT}
-	validate(question)
+	question = validate(question)
 	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
@@ -111,7 +118,7 @@ func questionFive() question {
 	question := question{question: "Milk chocolate is the best type of chocolate (1-5)?\n",
 		answer: 0, idealAnswer: QUESTION_FIVE_IDEAL, answerDifference: QUESTION_FIVE_RANGE,
 		weight: QUESTION_FIVE_WEIGHT}
-	validate(question)
+	question = validate(question)
 	question.answerDifference = math.Abs(question.idealAnswer - question.answer)
 	return question
 }
