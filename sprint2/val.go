@@ -15,16 +15,22 @@ type Validate interface {
 type root string
 
 func RootDir() string {
-	mydir, err := os.Getwd()
+	dir, err := os.Getwd()
 	if err != nil {
 		fmt.Println(err)
 	}
-	return mydir
+	return dir
 }
 
 func welcome() {
 	fmt.Println("*********************")
 	fmt.Println("      VALIDATOR      ")
+	fmt.Println("*********************")
+}
+
+func footer() {
+	fmt.Println("*********************")
+	fmt.Println(" Thank you for using ")
 	fmt.Println("*********************")
 }
 
@@ -37,4 +43,5 @@ func main() {
 	v.LicenseScan()
 	v.CharacterScan()
 	v.TabScan()
+	footer()
 }

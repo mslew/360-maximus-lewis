@@ -24,6 +24,7 @@ func (r root) TabScan() {
 	for _, fileInFiles := range files {
 		fileExtension := filepath.Ext(fileInFiles)
 		if fileExtension == ".go" {
+			fmt.Println("Opening " + fileInFiles)
 			file, err := os.Open(string(r))
 			if err != nil {
 				log.Fatal(err)
