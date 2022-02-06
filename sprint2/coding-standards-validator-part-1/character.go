@@ -8,6 +8,10 @@ import (
 	"path/filepath"
 )
 
+//this will scan files in the directory
+//finds .go files and opens them
+//goes line by line and counts characters for each line
+//if the characters exceed 100 it will report to user.
 func (r root) CharacterScan() {
 	var files []string
 	var text []string

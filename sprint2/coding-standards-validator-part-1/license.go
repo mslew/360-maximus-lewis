@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 )
 
+//this scans the file system for LICENSE.md file
 func (r root) LicenseScan() {
 	var files []string
 	dec := false

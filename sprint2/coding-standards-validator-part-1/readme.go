@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 )
 
+//scans the file system for a README.md file
 func (r root) ReadMeScan() {
 	var files []string
 	dec := false

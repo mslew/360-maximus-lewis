@@ -9,6 +9,9 @@ import (
 	"strings"
 )
 
+//this function scans the folder for files.
+//this will open files with .go extensions.
+//line by line and will see if there are tabs or not
 func (r root) TabScan() {
 	var files []string
 	dec := true
