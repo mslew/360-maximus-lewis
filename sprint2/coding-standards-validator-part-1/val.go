@@ -34,14 +34,21 @@ func footer() {
 	fmt.Println("*********************")
 }
 
+func codeBreak() {
+	fmt.Println("***********************************************************************")
+}
+
 func main() {
 	root := root(RootDir())
 	var v Validate
 	welcome()
 	v = root
 	v.ReadMeScan()
+	codeBreak()
 	v.LicenseScan()
+	codeBreak()
 	v.CharacterScan()
+	codeBreak()
 	v.TabScan()
 	footer()
 }
