@@ -1,0 +1,3 @@
+If I remove the README.md or LICENSE.md, the validator accurately tells the user those files are gone.
+If I create a line of code longer than 100 characters, the validator accurately finds the line and prints the line and file where the character count problem arises.
+If I create a problem where the tabs are out of order, the validator accurately finds the line and prints the line and file where the tab problem arises.  
