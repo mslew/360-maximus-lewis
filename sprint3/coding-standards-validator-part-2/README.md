@@ -5,7 +5,7 @@ LICENSE.md file, if there are tabs in the .go files,<br>
 and counts characters in .go files.</p>
 
 ## Run Validator
-<p>go run . in terminal<br>
+<p><strong>go run . in terminal</strong><br>
 <br>
 This will run automatically, thre is no user input required. It will automatically take the directory and scan files accordingly.<br> This will also give a report of findings.</p>  
 
@@ -23,4 +23,4 @@ For example, omit the README.md file, and check if the code still runs properly.
 ## Automatically Test Validator
 <p>This code comes with a val_test.go file in it. This will automatically test the functions in the code.<br>
 <br>
-go test . in terminal</p>
+<strong>go test . in terminal</strong></p>
