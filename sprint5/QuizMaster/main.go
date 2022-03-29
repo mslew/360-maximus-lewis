@@ -60,7 +60,7 @@ func handleRequests() {
 func main() {
 	QDB = []DB{
 		// DB{Id: "123", Name: "DB_H", Desc: "Article Description", Content: "Article Content"},
-		DB{Id: "123", Name: "DB_H", NumQ: "12", Questions: "Article Content", CorrectA: "{a,b,c,d,e}"},
+		DB{Id: "123", Name: "DB_H", NumQ: "4", Questions: "Article Content", CorrectA: "{a,b,c,d,e}"},
 		DB{Id: "456", Name: "DB_S", NumQ: "6", Questions: "FILLER", CorrectA: "{b,x,d,x}"},
 		//DB{Id: "456", Name: "DB_S ", Desc: "Article Description", Content: "Article Content"},
 	}
