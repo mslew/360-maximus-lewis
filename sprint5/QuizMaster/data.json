@@ -5,14 +5,8 @@
     [
         "1", "2", "3"
     ]
-        ,"name": 
-        [
-            "Bank1"
-        ]
-        ,"number_of_questions":
-        [
-            "3"
-        ]
+        ,"name": "Bank1"
+        ,"number_of_questions":"3"
         ,"questions":
         [
             "What is the scientific name of a butterfly?", 
@@ -51,14 +45,8 @@
         [
             "1", "2", "3"
         ]
-            ,"name": 
-            [
-                "Bank2"
-            ]
-            ,"number_of_questions":
-            [
-                "3"
-            ]
+            ,"name": "Bank2"
+            ,"number_of_questions":"3"
             ,"questions":
             [
                 "What is the capital of Spain?", 

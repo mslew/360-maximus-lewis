@@ -1,4 +1,4 @@
-package QuizMaster
+package main
 
 import (
 	"encoding/json"
@@ -10,11 +10,11 @@ import (
 )
 
 type DB struct {
-	Id        string `json:"Id"`
-	Name      string `json:"Name"`
-	NumQ      string `json:"NumQ"`
-	Questions string `json:"Questions"`
-	CorrectA  string `json:""`
+	id                  string `json:"Id"`
+	name                string `json:"Name"`
+	number_of_questions string `json:"NumQ"`
+	options             string `json:"Questions"`
+	answer              string `json:""`
 }
 
 // let's declare a global Articles array
@@ -36,7 +36,7 @@ func returnSingleDB(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, "Key: " + key)
 
 	for _, article := range QDB {
-		if article.Id == key {
+		if article.id == key {
 			json.NewEncoder(w).Encode(article)
 		}
 	}
@@ -60,8 +60,8 @@ func handleRequests() {
 func main() {
 	QDB = []DB{
 		// DB{Id: "123", Name: "DB_H", Desc: "Article Description", Content: "Article Content"},
-		DB{Id: "123", Name: "DB_H", NumQ: "4", Questions: "Article Content", CorrectA: "{a,b,c,d,e}"},
-		DB{Id: "456", Name: "DB_S", NumQ: "6", Questions: "FILLER", CorrectA: "{b,x,d,x}"},
+		DB{id: "123", name: "DB_H", number_of_questions: "4", options: "Article Content", answer: "{a,b,c,d,e}"},
+		DB{id: "456", name: "DB_S", number_of_questions: "6", options: "FILLER", answer: "{b,x,d,x}"},
 		//DB{Id: "456", Name: "DB_S ", Desc: "Article Description", Content: "Article Content"},
 	}
 	handleRequests()
