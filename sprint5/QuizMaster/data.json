@@ -1,10 +1,10 @@
 {
-    "database":[
+    "databases":[
         {
         "id":["1", "2", "3"],
-        "name": "Bank1",
+        "name":"Bank1",
         "number_of_questions":"3",
-        "questions":["What is the scientific name of a butterfly?", "How hot is the surface of the sun?","Who are the actors in The Internship?"],
+        "questions":["What is the scientific name of a butterfly?", "How hot is the surface of the sun?", "Who are the actors in The Internship?"],
         "options":[
             [
                 "Apis",
@@ -29,9 +29,9 @@
         },
         {
         "id":["4", "5", "6"],
-        "name": "Bank2",
-        "number_of_questions": "3",
-        "questions": ["What is the capital of Spain?", "What are the school colors of the University of Texas at Austin?", "What is 70 degrees Fahrenheit in Celsius?"],
+        "name":"Bank2",
+        "number_of_questions":"3",
+        "questions":["What is the capital of Spain?", "What are the school colors of the University of Texas at Austin?", "What is 70 degrees Fahrenheit in Celsius?"],
         "options":[
                 [
                     "Berlin",

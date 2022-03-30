@@ -3,20 +3,19 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 )
 
 type DatabaseArray struct {
-	databases []Database `json:"database`
-}
-
-type Database struct {
-	id                  []string `json:"id"`
-	name                string   `json:"name"`
-	number_of_questions string   `json:"number_of_questions"`
-	questions           []string `json:"questions"`
-	options             []string `json:"options"`
-	answer              []string `json:"answer"`
+	Databases []struct {
+		ID                []string   `json:"id"`
+		Name              string     `json:"name"`
+		NumberOfQuestions string     `json:"number_of_questions"`
+		Questions         []string   `json:"questions"`
+		Options           [][]string `json:"options"`
+		Answer            []string   `json:"answer"`
+	} `json:"databases"`
 }
 
 /*// let's declare a global Articles array
@@ -60,14 +59,17 @@ func handleRequests() {
 }*/
 
 func ReadFromJson() DatabaseArray {
-	var databaseArray DatabaseArray
+	databaseArray := DatabaseArray{}
 	content, err := os.Open("data.json")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 	defer content.Close()
-	jsonParser := json.NewDecoder(content)
-	err = jsonParser.Decode(&databaseArray)
+	byteValue, _ := ioutil.ReadAll(content)
+	err2 := json.Unmarshal(byteValue, &databaseArray)
+	if err2 != nil {
+		fmt.Println(err2.Error())
+	}
 	return databaseArray
 }
 
@@ -81,12 +83,12 @@ func main() {
 
 	databaseArray := ReadFromJson()
 
-	for i := 0; i < len(databaseArray.databases); i++ {
-		fmt.Printf("%v, %s, %s, %v, %v, %v", databaseArray.databases[i].id,
-			databaseArray.databases[i].name,
-			databaseArray.databases[i].number_of_questions,
-			databaseArray.databases[i].questions,
-			databaseArray.databases[i].options,
-			databaseArray.databases[i].answer)
+	for i := 0; i < len(databaseArray.Databases); i++ {
+		fmt.Printf("%v\n %s\n %s\n %v\n %v\n %v\n\n\n", databaseArray.Databases[i].ID,
+			databaseArray.Databases[i].Name,
+			databaseArray.Databases[i].NumberOfQuestions,
+			databaseArray.Databases[i].Questions,
+			databaseArray.Databases[i].Options,
+			databaseArray.Databases[i].Answer)
 	}
 }
