@@ -1,20 +1,11 @@
 {
-    "Bank1":
-    {
-        "id":
-    [
-        "1", "2", "3"
-    ]
-        ,"name": "Bank1"
-        ,"number_of_questions":"3"
-        ,"questions":
-        [
-            "What is the scientific name of a butterfly?", 
-            "How hot is the surface of the sun?",
-            "Who are the actors in The Internship?"
-        ]
-        ,"options":
-        [
+    "database":[
+        {
+        "id":["1", "2", "3"],
+        "name": "Bank1",
+        "number_of_questions":"3",
+        "questions":["What is the scientific name of a butterfly?", "How hot is the surface of the sun?","Who are the actors in The Internship?"],
+        "options":[
             [
                 "Apis",
                 "Coleoptera",
@@ -33,28 +24,15 @@
                 "Kaley Cuoco, Jim Parsons",
                 "Vince Vaughn, Owen Wilson"
             ]
-        ]
-        ,"answer":
-        [
-            "Rhopalocera", "5,778 K", "Vince Vaughn, Owen Wilson"
-        ]
-    },
-    "Bank2":
-    {
-        "id":
-        [
-            "1", "2", "3"
-        ]
-            ,"name": "Bank2"
-            ,"number_of_questions":"3"
-            ,"questions":
-            [
-                "What is the capital of Spain?", 
-                "What are the school colors of the University of Texas at Austin?",
-                "What is 70 degrees Fahrenheit in Celsius?"
-            ]
-            ,"options":
-            [
+        ],
+        "answer":["Rhopalocera", "5,778 K", "Vince Vaughn, Owen Wilson"]
+        },
+        {
+        "id":["4", "5", "6"],
+        "name": "Bank2",
+        "number_of_questions": "3",
+        "questions": ["What is the capital of Spain?", "What are the school colors of the University of Texas at Austin?", "What is 70 degrees Fahrenheit in Celsius?"],
+        "options":[
                 [
                     "Berlin",
                     "Buenos Aires",
@@ -73,10 +51,7 @@
                     "21.1111",
                     "158"
                 ]
-            ]
-            ,"answer":
-            [
-                "Madrid", "White, Burnt Orange", "21.1111"
-            ]
-    }
-}
+            ],
+        "answer":["Madrid", "White, Burnt Orange", "21.1111"]
+        }
+]}

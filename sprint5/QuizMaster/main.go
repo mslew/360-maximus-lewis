@@ -3,21 +3,23 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
-	"net/http"
-
-	"github.com/gorilla/mux"
+	"os"
 )
 
-type DB struct {
-	id                  string `json:"Id"`
-	name                string `json:"Name"`
-	number_of_questions string `json:"NumQ"`
-	options             string `json:"Questions"`
-	answer              string `json:""`
+type DatabaseArray struct {
+	databases []Database `json:"database`
 }
 
-// let's declare a global Articles array
+type Database struct {
+	id                  []string `json:"id"`
+	name                string   `json:"name"`
+	number_of_questions string   `json:"number_of_questions"`
+	questions           []string `json:"questions"`
+	options             []string `json:"options"`
+	answer              []string `json:"answer"`
+}
+
+/*// let's declare a global Articles array
 // that we can then populate in our main function
 // to simulate a database
 var QDB []DB
@@ -55,14 +57,36 @@ func handleRequests() {
 	// to pass in our newly created router as the second
 	// argument
 	log.Fatal(http.ListenAndServe(":10000", myRouter))
+}*/
+
+func ReadFromJson() DatabaseArray {
+	var databaseArray DatabaseArray
+	content, err := os.Open("data.json")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	defer content.Close()
+	jsonParser := json.NewDecoder(content)
+	err = jsonParser.Decode(&databaseArray)
+	return databaseArray
 }
 
 func main() {
-	QDB = []DB{
+	/*QDB = []DB{
 		// DB{Id: "123", Name: "DB_H", Desc: "Article Description", Content: "Article Content"},
 		DB{id: "123", name: "DB_H", number_of_questions: "4", options: "Article Content", answer: "{a,b,c,d,e}"},
 		DB{id: "456", name: "DB_S", number_of_questions: "6", options: "FILLER", answer: "{b,x,d,x}"},
 		//DB{Id: "456", Name: "DB_S ", Desc: "Article Description", Content: "Article Content"},
+	}*/
+
+	databaseArray := ReadFromJson()
+
+	for i := 0; i < len(databaseArray.databases); i++ {
+		fmt.Printf("%v, %s, %s, %v, %v, %v", databaseArray.databases[i].id,
+			databaseArray.databases[i].name,
+			databaseArray.databases[i].number_of_questions,
+			databaseArray.databases[i].questions,
+			databaseArray.databases[i].options,
+			databaseArray.databases[i].answer)
 	}
-	handleRequests()
 }
