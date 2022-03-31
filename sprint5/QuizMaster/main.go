@@ -9,13 +9,19 @@ import (
 
 type DatabaseArray struct {
 	Databases []struct {
-		ID                []string   `json:"id"`
+		ID                string     `json:"id"`
 		Name              string     `json:"name"`
 		NumberOfQuestions string     `json:"number_of_questions"`
 		Questions         []string   `json:"questions"`
 		Options           [][]string `json:"options"`
 		Answer            []string   `json:"answer"`
 	} `json:"databases"`
+}
+
+type ReturnFunction1 struct {
+	ID                []string
+	name              []string
+	numberOfQuestions []string
 }
 
 /*// let's declare a global Articles array
@@ -58,7 +64,7 @@ func handleRequests() {
 	log.Fatal(http.ListenAndServe(":10000", myRouter))
 }*/
 
-func ReadFromJson() DatabaseArray {
+func ReadFromJson() ReturnFunction1 {
 	databaseArray := DatabaseArray{}
 	content, err := os.Open("data.json")
 	if err != nil {
@@ -70,7 +76,15 @@ func ReadFromJson() DatabaseArray {
 	if err2 != nil {
 		fmt.Println(err2.Error())
 	}
-	return databaseArray
+
+	returnFunction1 := ReturnFunction1{}
+
+	for i := 0; i < len(databaseArray.Databases); i++ {
+		returnFunction1.ID = append(returnFunction1.ID, databaseArray.Databases[i].ID)
+		returnFunction1.name = append(returnFunction1.name, databaseArray.Databases[i].Name)
+		returnFunction1.numberOfQuestions = append(returnFunction1.numberOfQuestions, databaseArray.Databases[i].NumberOfQuestions)
+	}
+	return returnFunction1
 }
 
 func main() {
@@ -81,14 +95,7 @@ func main() {
 		//DB{Id: "456", Name: "DB_S ", Desc: "Article Description", Content: "Article Content"},
 	}*/
 
-	databaseArray := ReadFromJson()
+	returnFunction := ReadFromJson()
 
-	for i := 0; i < len(databaseArray.Databases); i++ {
-		fmt.Printf("%v\n %s\n %s\n %v\n %v\n %v\n\n\n", databaseArray.Databases[i].ID,
-			databaseArray.Databases[i].Name,
-			databaseArray.Databases[i].NumberOfQuestions,
-			databaseArray.Databases[i].Questions,
-			databaseArray.Databases[i].Options,
-			databaseArray.Databases[i].Answer)
-	}
+	fmt.Println(returnFunction)
 }
