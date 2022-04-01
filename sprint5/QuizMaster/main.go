@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+
+	//"net/http"
 	"os"
+	"strconv"
 )
 
 type DatabaseArray struct {
@@ -22,6 +25,10 @@ type ReturnFunction1 struct {
 	ID                []string
 	name              []string
 	numberOfQuestions []string
+}
+type ReturnFunction2 struct {
+	Questions []string
+	Options   []string
 }
 
 /*// let's declare a global Articles array
@@ -88,14 +95,71 @@ func ReadFromJson() ReturnFunction1 {
 }
 
 func main() {
-	/*QDB = []DB{
-		// DB{Id: "123", Name: "DB_H", Desc: "Article Description", Content: "Article Content"},
-		DB{id: "123", name: "DB_H", number_of_questions: "4", options: "Article Content", answer: "{a,b,c,d,e}"},
-		DB{id: "456", name: "DB_S", number_of_questions: "6", options: "FILLER", answer: "{b,x,d,x}"},
-		//DB{Id: "456", Name: "DB_S ", Desc: "Article Description", Content: "Article Content"},
-	}*/
-
 	returnFunction := ReadFromJson()
+	questionOptions := ShowQuestions()
 
 	fmt.Println(returnFunction)
+
+	fmt.Println(questionOptions.Questions)
+	fmt.Println(questionOptions.Options)
+	//fmt.Println(randArray(questionOptions.Options))
+
+	//fmt.Println("\n", questionOptions)
+}
+
+/*func randArray(src []string) []string {
+	final := make([]string, len(src))
+	rand.Seed(time.Now().UnixNano())
+	perm := rand.Perm(len(src))
+
+	for i, v := range perm {
+		final[v] = src[i]
+	}
+	return final
+}
+*/
+
+//w http.ResponseWriter, r *http.Request
+func ShowQuestions() ReturnFunction2 {
+	databaseArray := DatabaseArray{}
+	content, err := os.Open("data.json")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	defer content.Close()
+	byteValue, _ := ioutil.ReadAll(content)
+	err2 := json.Unmarshal(byteValue, &databaseArray)
+	if err2 != nil {
+		fmt.Println(err2.Error())
+	}
+	returnFunction2 := ReturnFunction2{}
+
+	var strArray = []string{"1", "2", "2", "1"}
+	var intArray = []int{0}
+
+	for _, i := range strArray {
+		j, err3 := strconv.Atoi(i)
+		if err3 != nil {
+			panic(err)
+		}
+		intArray = append(intArray, j)
+	}
+	for dCount := 0; dCount < len(databaseArray.Databases); dCount++ { // 1 - 2 databases
+		for inCount := 0; inCount < len(strArray); inCount += 2 { // looping trhough input array
+			if strArray[inCount] == databaseArray.Databases[dCount].ID { //matching id's
+
+				if inCount+1 <= len(intArray) { //check proper num Q
+					for qCount := 0; qCount < intArray[inCount+1]; qCount++ { //handle num Q
+
+						returnFunction2.Questions = append(returnFunction2.Questions, databaseArray.Databases[dCount].Questions[qCount])
+						for oCount := 0; oCount <= len(databaseArray.Databases[dCount].Options); oCount++ {
+							returnFunction2.Options = append(returnFunction2.Options, databaseArray.Databases[dCount].Options[qCount][oCount])
+						}
+					}
+				}
+			}
+		}
+	}
+	return returnFunction2
+
 }

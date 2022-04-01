@@ -10,19 +10,19 @@
                 "Apis",
                 "Coleoptera",
                 "Formicidae",
-                "Rhopalocera"
+                "Rhopalocera\n"
             ],
             [
                 "1,233 K",
                 "5,778 K",
                 "12,130 K",
-                "101,300 K"
+                "101,300 K\n"
             ],
             [
                 "Ben Stiller, Jonah Hill",
                 "Courteney Cox, Matt LeBlanc",
                 "Kaley Cuoco, Jim Parsons",
-                "Vince Vaughn, Owen Wilson"
+                "Vince Vaughn, Owen Wilson\n"
             ]
         ],
         "answer":["Rhopalocera", "5,778 K", "Vince Vaughn, Owen Wilson"]
@@ -37,19 +37,19 @@
                     "Berlin",
                     "Buenos Aires",
                     "Madrid",
-                    "San Juan"
+                    "San Juan\n"
                 ],
                 [
                     "Black, Red",
                     "Blue, Orange",
                     "White, Burnt Orange",
-                    "White, Old gold, Gold"
+                    "White, Old gold, Gold\n"
                 ],
                 [
                     "18.8889",
                     "20",
                     "21.1111",
-                    "158"
+                    "158\n"
                 ]
             ],
         "answer":["Madrid", "White, Burnt Orange", "21.1111"]
