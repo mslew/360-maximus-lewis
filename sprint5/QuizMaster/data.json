@@ -6,24 +6,15 @@
         "number_of_questions":"3",
         "questions":["What is the scientific name of a butterfly?\n", "How hot is the surface of the sun?\n", "Who are the actors in The Internship?\n"],
         "options":[
-            [
-                "Apis",
-                "Coleoptera",
-                "Formicidae",
-                "Rhopalocera\n"
-            ],
-            [
-                "1,233 K",
-                "5,778 K",
-                "12,130 K",
-                "101,300 K\n"
-            ],
-            [
-                "Ben Stiller, Jonah Hill",
-                "Courteney Cox, Matt LeBlanc",
-                "Kaley Cuoco, Jim Parsons",
-                "Vince Vaughn, Owen Wilson\n"
-            ]
+            
+                "Apis\nColeoptera\nFormicidae\nRhopalocera\n"
+            ,
+            
+                "\n1,233 K\n5,778 K\n12,130 K\n101,300 K\n"
+            ,
+            
+                "\nBen Stiller Jonah Hill\nCourteney Cox Matt LeBlanc\nKaley Cuoco Jim Parsons\nVince Vaughn Owen Wilson\n"
+            
         ],
         "answer":["Rhopalocera", "5,778 K", "Vince Vaughn, Owen Wilson"]
         },
@@ -33,24 +24,15 @@
         "number_of_questions":"3",
         "questions":["What is the capital of Spain?\n", "What are the school colors of the University of Texas at Austin?\n", "What is 70 degrees Fahrenheit in Celsius?\n"],
         "options":[
-                [
-                    "Berlin",
-                    "Buenos Aires",
-                    "Madrid",
-                    "San Juan\n"
-                ],
-                [
-                    "Black, Red",
-                    "Blue, Orange",
-                    "White, Burnt Orange",
-                    "White, Old gold, Gold\n"
-                ],
-                [
-                    "18.8889",
-                    "20",
-                    "21.1111",
-                    "158\n"
-                ]
+                
+                    "\nBerlin\nBuenos Aires\nMadrid\nSan Juan\n"
+                ,
+                
+                    "\nBlack, Red\nBlue, Orange\nWhite, Burnt Orange\nWhite, Old Gold\n"
+                ,
+                
+                    "\n18.8889\n20\n21.1111\n158\n"
+                
             ],
         "answer":["Madrid", "White, Burnt Orange", "21.1111"]
         }

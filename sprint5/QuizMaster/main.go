@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
+	"time"
 
 	//"net/http"
 	"os"
@@ -12,12 +14,12 @@ import (
 
 type DatabaseArray struct {
 	Databases []struct {
-		ID                string     `json:"id"`
-		Name              string     `json:"name"`
-		NumberOfQuestions string     `json:"number_of_questions"`
-		Questions         []string   `json:"questions"`
-		Options           [][]string `json:"options"`
-		Answer            []string   `json:"answer"`
+		ID                string   `json:"id"`
+		Name              string   `json:"name"`
+		NumberOfQuestions string   `json:"number_of_questions"`
+		Questions         []string `json:"questions"`
+		Options           []string `json:"options"`
+		Answer            []string `json:"answer"`
 	} `json:"databases"`
 }
 
@@ -100,24 +102,16 @@ func main() {
 
 	fmt.Println(returnFunction)
 
-	fmt.Println(questionOptions.Questions)
-	fmt.Println(questionOptions.Options)
-	//fmt.Println(randArray(questionOptions.Options))
-
-	//fmt.Println("\n", questionOptions)
-}
-
-/*func randArray(src []string) []string {
-	final := make([]string, len(src))
-	rand.Seed(time.Now().UnixNano())
-	perm := rand.Perm(len(src))
-
-	for i, v := range perm {
-		final[v] = src[i]
+	r := rand.New(rand.NewSource(time.Now().Unix()))
+	for _, i := range r.Perm(len(questionOptions.Questions)) {
+		fmt.Println(questionOptions.Questions[i])
+		fmt.Println(questionOptions.Options[i])
 	}
-	return final
+
+	//fmt.Println(questionOptions.Questions)
+	//fmt.Println(questionOptions.Options)
+
 }
-*/
 
 //w http.ResponseWriter, r *http.Request
 func ShowQuestions() ReturnFunction2 {
@@ -150,11 +144,8 @@ func ShowQuestions() ReturnFunction2 {
 
 				if inCount+1 <= len(intArray) { //check proper num Q
 					for qCount := 0; qCount < intArray[inCount+1]; qCount++ { //handle num Q
-
 						returnFunction2.Questions = append(returnFunction2.Questions, databaseArray.Databases[dCount].Questions[qCount])
-						for oCount := 0; oCount <= len(databaseArray.Databases[dCount].Options); oCount++ {
-							returnFunction2.Options = append(returnFunction2.Options, databaseArray.Databases[dCount].Options[qCount][oCount])
-						}
+						returnFunction2.Options = append(returnFunction2.Options, databaseArray.Databases[dCount].Options[qCount])
 					}
 				}
 			}
