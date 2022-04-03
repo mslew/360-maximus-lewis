@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) [2022] [Maximus Lewis, Anthony Mastores]
+Copyright (c) 2022 Maximus Lewis and Anthony Mastores
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
