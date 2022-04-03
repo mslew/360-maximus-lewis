@@ -12,6 +12,7 @@ import (
 	"strconv"
 )
 
+//object to store the json data
 type DatabaseArray struct {
 	Databases []struct {
 		ID                string   `json:"id"`
@@ -23,17 +24,22 @@ type DatabaseArray struct {
 	} `json:"databases"`
 }
 
+//object to store the data from the first return function
 type ReturnFunction1 struct {
 	ID                []string
 	name              []string
 	numberOfQuestions []string
 }
+
+//object to store the data from the second return function
 type ReturnFunction2 struct {
 	Questions []string
 	Options   []string
 }
 
-func ReadFromJson() ReturnFunction1 {
+//this reads the json data from the data.json file
+//it will store it in an object of an array of database objects
+func ShowInformation() ReturnFunction1 {
 	databaseArray := DatabaseArray{}
 	content, err := os.Open("data.json")
 	if err != nil {
@@ -54,23 +60,6 @@ func ReadFromJson() ReturnFunction1 {
 		returnFunction1.numberOfQuestions = append(returnFunction1.numberOfQuestions, databaseArray.Databases[i].NumberOfQuestions)
 	}
 	return returnFunction1
-}
-
-func main() {
-	returnFunction := ReadFromJson()
-	questionOptions := ShowQuestions()
-
-	fmt.Println(returnFunction)
-
-	r := rand.New(rand.NewSource(time.Now().Unix()))
-	for _, i := range r.Perm(len(questionOptions.Questions)) {
-		fmt.Println(questionOptions.Questions[i])
-		fmt.Println(questionOptions.Options[i])
-	}
-
-	//fmt.Println(questionOptions.Questions)
-	//fmt.Println(questionOptions.Options)
-
 }
 
 //w http.ResponseWriter, r *http.Request
@@ -113,4 +102,21 @@ func ShowQuestions() ReturnFunction2 {
 	}
 	return returnFunction2
 
+}
+
+func main() {
+	returnFunction := ShowInformation()
+	questionOptions := ShowQuestions()
+
+	//iterate the banks and print information
+	for i := 0; i < len(returnFunction.ID); i++ {
+		fmt.Printf("Bank ID: %s\n Bank Name: %s\n Number of questions for %s: %s\n\n",
+			returnFunction.ID[i], returnFunction.name[i], returnFunction.name[i], returnFunction.numberOfQuestions[i])
+	}
+
+	r := rand.New(rand.NewSource(time.Now().Unix()))
+	for _, i := range r.Perm(len(questionOptions.Questions)) {
+		fmt.Println(questionOptions.Questions[i])
+		fmt.Println(questionOptions.Options[i])
+	}
 }
