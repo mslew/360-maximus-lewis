@@ -1,7 +1,6 @@
 # Sprint 5 QuizMaster
 
-## Contributors
-
+### Contributors
 <p><br>Max Lewis: maximusslewis@lewisu.edu</br>
 <br>Anthony Mastores: anthonyjmastores@lewis.edu</br></p>
 
@@ -11,4 +10,5 @@ amount of question banks there are, the ID of that bank, and the number of quest
 appropriate number of questions and potential answers for each question bank. All data for the Questions and Banks are stored
 in the data.json file.</p>
 
+<p>To run. This will not be the final product.</p>
 `go run main.go`
