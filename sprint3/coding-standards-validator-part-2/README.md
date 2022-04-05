@@ -21,6 +21,6 @@ The best way one can manually test the validator is to omit or add "errors"<br>
 For example, omit the README.md file, and check if the code still runs properly.</p>
 
 ## Automatically Test Validator
-<p>This code comes with a val_test.go file in it. This will automatically test the functions in the code.<br>
-<br>
-`go test . `
+<p>This code comes with a val_test.go file in it. This will automatically test the functions in the code.</p>
+
+`go test .`
