@@ -1,24 +1,34 @@
-package main
+package s
 
 import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 
-	//"math/rand"
-	//"time"
-
 	"net/http"
 	"os"
 	"strconv"
 )
 
+type DatabaseArray struct {
+	Databases []struct {
+		ID                string   `json:"id"`
+		Name              string   `json:"name"`
+		NumberOfQuestions string   `json:"number_of_questions"`
+		Questions         []string `json:"questions"`
+		Options           []string `json:"options"`
+		Answer            []string `json:"answer"`
+	} `json:"databases"`
+}
+type ReturnFunction2 struct {
+	Questions []string
+	Options   []string
+}
+
 type StrArray struct {
 	ID []string `json:"id"`
 }
 
-// HelloWorld prints the JSON encoded "message" field in the body
-// of the request or "Hello, World!" if there isn't one.
 func ShowQ(w http.ResponseWriter, r *http.Request) {
 	databaseArray := DatabaseArray{}
 	content, err := os.Open("data.json")
