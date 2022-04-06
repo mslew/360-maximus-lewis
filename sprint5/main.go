@@ -73,11 +73,12 @@ func showQHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err2.Error())
 	}
 	strArray := StrArray{}
-	err3 := json.NewDecoder(r.Body).Decode(&strArray)
-	if err3 != nil {
-		fmt.Println(err3.Error())
-		return
-	}
+	strArray.ID = []string{"1", "2", "2", "1"} // how to take in input and not have constant json??????
+	//err3 := json.NewDecoder(r.Body).Decode(&strArray)
+	//if err3 != nil {
+	//fmt.Println(err3.Error())
+	//	return
+	//}
 	var intArray = []int{0}
 
 	for _, i := range strArray.ID {
@@ -117,10 +118,16 @@ func showQHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	router := mux.NewRouter()
 	//testing
+	//var strArray = []string{"1", "2", "2", "1"}
+	strArray := StrArray{}
+	strArray.ID = []string{"1", "2", "2", "1"}
+	//strArray.ID = {"1","2","2","1"}
+
 	for i := 0; i < 10; i++ {
 		go router.HandleFunc("/getBank", getBankHandler) //10 multi-threaded requests
+		go router.HandleFunc("/showQ", showQHandler)     //10 sort of working multi-threaded requests
 	}
 	//router.HandleFunc("/getBank", getBankHandler) //go to localhost:8080/getBank for testing
-	router.HandleFunc("/showQ", showQHandler) //localhost:8080/showQ
+	//router.HandleFunc("/showQ", showQHandler) //localhost:8080/showQ
 	http.ListenAndServe(":8080", router)
 }
