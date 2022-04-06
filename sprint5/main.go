@@ -50,7 +50,7 @@ func getBankHandler(w http.ResponseWriter, r *http.Request) {
 	if err2 != nil {
 		fmt.Println(err2.Error())
 	}
-	w.Write(byteValue)
+	//w.Write(byteValue) all Bank info
 
 	returnFunction1 := ReturnFunction1{}
 
@@ -59,6 +59,12 @@ func getBankHandler(w http.ResponseWriter, r *http.Request) {
 		returnFunction1.name = append(returnFunction1.name, databaseArray.Databases[i].Name)
 		returnFunction1.numberOfQuestions = append(returnFunction1.numberOfQuestions, databaseArray.Databases[i].NumberOfQuestions)
 	}
+	fmt.Println(returnFunction1.name)
+	fmt.Println(returnFunction1.ID)
+	fmt.Println(returnFunction1.numberOfQuestions)
+	json.NewEncoder(w).Encode(returnFunction1.name)
+	json.NewEncoder(w).Encode(returnFunction1.ID)
+	json.NewEncoder(w).Encode(returnFunction1.numberOfQuestions)
 }
 func showQHandler(w http.ResponseWriter, r *http.Request) {
 	databaseArray := DatabaseArray{}
@@ -102,7 +108,8 @@ func showQHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-
+	fmt.Println(returnFunction2.Questions)
+	fmt.Println(returnFunction2.Options)
 	json.NewEncoder(w).Encode(returnFunction2) // write json to http
 
 }
