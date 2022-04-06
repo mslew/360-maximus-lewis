@@ -4,12 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"math/rand"
-	"time"
-
-	//"net/http"
+	"net/http"
 	"os"
 	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 //object to store the json data
@@ -33,24 +32,25 @@ type ReturnFunction1 struct {
 
 //object to store the data from the second return function
 type ReturnFunction2 struct {
-	Questions []string
-	Options   []string
+	Questions []string `json:"question"`
+	Options   []string `json:"options"`
+}
+type StrArray struct {
+	ID []string `json:"id"`
 }
 
-//this reads the json data from the data.json file
-//it will store it in an object of an array of database objects
-func ShowInformation() ReturnFunction1 {
+func getBankHandler(w http.ResponseWriter, r *http.Request) {
 	databaseArray := DatabaseArray{}
-	content, err := os.Open("data.json")
-	if err != nil {
-		fmt.Println(err.Error())
-	}
+	content, _ := os.Open("data.json")
+
 	defer content.Close()
+
 	byteValue, _ := ioutil.ReadAll(content)
 	err2 := json.Unmarshal(byteValue, &databaseArray)
 	if err2 != nil {
 		fmt.Println(err2.Error())
 	}
+	w.Write(byteValue)
 
 	returnFunction1 := ReturnFunction1{}
 
@@ -59,11 +59,8 @@ func ShowInformation() ReturnFunction1 {
 		returnFunction1.name = append(returnFunction1.name, databaseArray.Databases[i].Name)
 		returnFunction1.numberOfQuestions = append(returnFunction1.numberOfQuestions, databaseArray.Databases[i].NumberOfQuestions)
 	}
-	return returnFunction1
 }
-
-//w http.ResponseWriter, r *http.Request
-func ShowQuestions() ReturnFunction2 {
+func showQHandler(w http.ResponseWriter, r *http.Request) {
 	databaseArray := DatabaseArray{}
 	content, err := os.Open("data.json")
 	if err != nil {
@@ -75,21 +72,25 @@ func ShowQuestions() ReturnFunction2 {
 	if err2 != nil {
 		fmt.Println(err2.Error())
 	}
-	returnFunction2 := ReturnFunction2{}
-
-	var strArray = []string{"1", "2", "2", "1"}
+	strArray := StrArray{}
+	err3 := json.NewDecoder(r.Body).Decode(&strArray)
+	if err3 != nil {
+		fmt.Println(err3.Error())
+		return
+	}
 	var intArray = []int{0}
 
-	for _, i := range strArray {
+	for _, i := range strArray.ID {
 		j, err3 := strconv.Atoi(i)
 		if err3 != nil {
 			panic(err)
 		}
 		intArray = append(intArray, j)
 	}
+	returnFunction2 := ReturnFunction2{}
 	for dCount := 0; dCount < len(databaseArray.Databases); dCount++ { // 1 - 2 databases
-		for inCount := 0; inCount < len(strArray); inCount += 2 { // looping trhough input array
-			if strArray[inCount] == databaseArray.Databases[dCount].ID { //matching id's
+		for inCount := 0; inCount < len(strArray.ID); inCount += 2 { // looping trhough input array
+			if strArray.ID[inCount] == databaseArray.Databases[dCount].ID { //matching id's
 
 				if inCount+1 <= len(intArray) { //check proper num Q
 					for qCount := 0; qCount < intArray[inCount+1]; qCount++ { //handle num Q
@@ -100,23 +101,23 @@ func ShowQuestions() ReturnFunction2 {
 			}
 		}
 	}
-	return returnFunction2
+	//Attempting to write returnFunction2 json struct to w response Writer
+
+	//jsonRF2, err := json.Marshal(returnFunction2)
+	//if err != nil {
+	//	fmt.Println(err3.Error())
+	//}
+	//w.Header().Set("Content-Type", "application/json")
+	//w.Write(jsonRF2)
+
+	json.NewEncoder(w).Encode(returnFunction2) // attempting to write json to http
 
 }
 
 func main() {
-	returnFunction := ShowInformation()
-	questionOptions := ShowQuestions()
-
-	//iterate the banks and print information
-	for i := 0; i < len(returnFunction.ID); i++ {
-		fmt.Printf("Bank ID: %s\n Bank Name: %s\n Number of questions for %s: %s\n\n",
-			returnFunction.ID[i], returnFunction.name[i], returnFunction.name[i], returnFunction.numberOfQuestions[i])
-	}
-
-	r := rand.New(rand.NewSource(time.Now().Unix()))
-	for _, i := range r.Perm(len(questionOptions.Questions)) {
-		fmt.Println(questionOptions.Questions[i])
-		fmt.Println(questionOptions.Options[i])
-	}
+	router := mux.NewRouter()
+	//testing
+	router.HandleFunc("/getBank", getBankHandler) //localhost:8080/getBank
+	router.HandleFunc("/showQ", showQHandler)     //localhost:8080/showQ
+	http.ListenAndServe(":8080", router)
 }

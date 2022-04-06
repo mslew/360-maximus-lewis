@@ -1,0 +1,39 @@
+{
+    "databases":[
+        {
+        "id":"1",
+        "name":"Bank1",
+        "number_of_questions":"3",
+        "questions":["What is the scientific name of a butterfly?", "How hot is the surface of the sun?", "Who are the actors in The Internship?"],
+        "options":[
+            
+                "Apis,  Coleoptera, Formicidae, Rhopalocera"
+            ,
+            
+                "1,233 K    5,778 K,    12,130 K,   101,300 K"
+            ,
+            
+                "Ben Stiller Jonah Hill,    Courteney Cox Matt LeBlanc, Kaley Cuoco Jim Parsons,    Vince Vaughn Owen Wilson"
+            
+        ],
+        "answer":["Rhopalocera", "5,778 K", "Vince Vaughn, Owen Wilson"]
+        },
+        {
+        "id":"2",
+        "name":"Bank2",
+        "number_of_questions":"3",
+        "questions":["What is the capital of Spain?",   "What are the school colors of the University of Texas at Austin?", "What is 70 degrees Fahrenheit in Celsius?"],
+        "options":[
+                
+                    "Berlin, Buenos Aires,  Madrid, San Juan"
+                ,
+                
+                    "Black, Red,    Blue, Orange    White, Burnt Orange,    White Old Gold"
+                ,
+                
+                    "18.8889,   20, 21.1111,    158"
+                
+            ],
+        "answer":["Madrid", "White, Burnt Orange", "21.1111"]
+        }
+]}
