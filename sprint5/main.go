@@ -117,7 +117,10 @@ func showQHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	router := mux.NewRouter()
 	//testing
-	router.HandleFunc("/getBank", getBankHandler) //localhost:8080/getBank
-	router.HandleFunc("/showQ", showQHandler)     //localhost:8080/showQ
+	for i := 0; i < 10; i++ {
+		go router.HandleFunc("/getBank", getBankHandler) //10 multi-threaded requests
+	}
+	//router.HandleFunc("/getBank", getBankHandler) //go to localhost:8080/getBank for testing
+	router.HandleFunc("/showQ", showQHandler) //localhost:8080/showQ
 	http.ListenAndServe(":8080", router)
 }
