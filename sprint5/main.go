@@ -102,26 +102,16 @@ func showQHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	//Attempting to write returnFunction2 json struct to w response Writer
 
-	//jsonRF2, err := json.Marshal(returnFunction2)
-	//if err != nil {
-	//	fmt.Println(err3.Error())
-	//}
-	//w.Header().Set("Content-Type", "application/json")
-	//w.Write(jsonRF2)
-
-	json.NewEncoder(w).Encode(returnFunction2) // attempting to write json to http
+	json.NewEncoder(w).Encode(returnFunction2) // write json to http
 
 }
 
 func main() {
 	router := mux.NewRouter()
 	//testing
-	//var strArray = []string{"1", "2", "2", "1"}
 	strArray := StrArray{}
 	strArray.ID = []string{"1", "2", "2", "1"}
-	//strArray.ID = {"1","2","2","1"}
 
 	for i := 0; i < 10; i++ {
 		go router.HandleFunc("/getBank", getBankHandler) //10 multi-threaded requests
