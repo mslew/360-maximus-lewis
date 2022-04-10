@@ -131,10 +131,10 @@ func main() {
 		fmt.Println("Enter the information for the bank and you will be shown questions.")
 		//print instructions here
 	}
-	fmt.Print("Enter number of elements in array:")
+	fmt.Print("Enter desired number of Question Banks:")
 	fmt.Scanln(&n)
-	s.ID = make([]string, n)
-	for i := 0; i < n; i++ {
+	s.ID = make([]string, 2*n)
+	for i := 0; i < 2*n; i++ {
 		if i%2 == 0 {
 			fmt.Print("Enter an id: ")
 		} else {
@@ -143,21 +143,12 @@ func main() {
 		fmt.Scanf("%s\n", &s.ID[i])
 	}
 	for i := 0; i < 10; i++ {
-		go router.HandleFunc("/getBank", getBankHandler) //10 multi-threaded requests
+		go router.HandleFunc("/getBank", getBankHandler) //localhost:8080/getBank
 
-		go router.HandleFunc("/showQ", s.showQHandler) //10 sort of working multi-threaded requests
+		go router.HandleFunc("/showQ", s.showQHandler) //localhost:8080/showQ
 
 	}
-	//router.HandleFunc("/getBank", getBankHandler) //go to localhost:8080/getBank for testing
-	//router.HandleFunc("/showQ", showQHandler) //localhost:8080/showQ
+
 	http.ListenAndServe(":8080", router)
-	/*
-		if (len(os.Args) >= 1) || os.Args[2] == "h" { // help
-			q := "This program displays Question Bank Names, ID's, and Number of Questions." +
-				"The number of elements in the array should be twice the Question Banks you want to display. " +
-				"Enter first the id of the desired Question Bank and then the number of questions desired, continue for every subsequent Banks"
-			fmt.Println(q)
-			//os.Exit(0)
-		}
-	*/
+
 }
