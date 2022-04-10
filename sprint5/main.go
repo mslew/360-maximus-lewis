@@ -61,9 +61,9 @@ func initialRead() {
 		returnFunction1.name = append(returnFunction1.name, databaseArray.Databases[i].Name)
 		returnFunction1.numberOfQuestions = append(returnFunction1.numberOfQuestions, databaseArray.Databases[i].NumberOfQuestions)
 	}
-	fmt.Println(returnFunction1.name)
-	fmt.Println(returnFunction1.ID)
-	fmt.Println(returnFunction1.numberOfQuestions)
+	fmt.Printf("Bank Names: %s\n", returnFunction1.name)
+	fmt.Printf("IDs: %s\n", returnFunction1.ID)
+	fmt.Printf("Number of questions: %s\n", returnFunction1.numberOfQuestions)
 }
 
 func getBankHandler(w http.ResponseWriter, r *http.Request) {
