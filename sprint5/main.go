@@ -11,8 +11,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var gotBank = false
-
 //object to store the json data
 type DatabaseArray struct {
 	Databases []struct {
@@ -59,17 +57,18 @@ func getBankHandler(w http.ResponseWriter, r *http.Request) {
 	if err2 != nil {
 		fmt.Println(err2.Error())
 	}
-	//w.Write(byteValue) all Bank info
 	returnFunction1 := ReturnFunction1{}
+	//w.Write(byteValue) all Bank info
 	for i := 0; i < len(databaseArray.Databases); i++ {
 		returnFunction1.ID = append(returnFunction1.ID, databaseArray.Databases[i].ID)
 		returnFunction1.name = append(returnFunction1.name, databaseArray.Databases[i].Name)
 		returnFunction1.numberOfQuestions = append(returnFunction1.numberOfQuestions, databaseArray.Databases[i].NumberOfQuestions)
 	}
-	gotBank = true
+
 	fmt.Println(returnFunction1.name)
 	fmt.Println(returnFunction1.ID)
 	fmt.Println(returnFunction1.numberOfQuestions)
+
 	json.NewEncoder(w).Encode(returnFunction1.name)
 	json.NewEncoder(w).Encode(returnFunction1.ID)
 	json.NewEncoder(w).Encode(returnFunction1.numberOfQuestions)
@@ -144,8 +143,7 @@ func main() {
 	}
 	for i := 0; i < 10; i++ {
 		go router.HandleFunc("/getBank", getBankHandler) //localhost:8080/getBank
-
-		go router.HandleFunc("/showQ", s.showQHandler) //localhost:8080/showQ
+		go router.HandleFunc("/showQ", s.showQHandler)   //localhost:8080/showQ
 
 	}
 
