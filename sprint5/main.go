@@ -45,6 +45,26 @@ func Welcome() {
 	fmt.Println("Follow directions or type 'help' for instructions, enter to continue.")
 	fmt.Println("*********************************************************************")
 }
+func initialRead() {
+	databaseArray := DatabaseArray{}
+	content, _ := os.Open("data.json")
+	defer content.Close()
+	byteValue, _ := ioutil.ReadAll(content)
+	err2 := json.Unmarshal(byteValue, &databaseArray)
+	if err2 != nil {
+		fmt.Println(err2.Error())
+	}
+	returnFunction1 := ReturnFunction1{}
+	//w.Write(byteValue) all Bank info
+	for i := 0; i < len(databaseArray.Databases); i++ {
+		returnFunction1.ID = append(returnFunction1.ID, databaseArray.Databases[i].ID)
+		returnFunction1.name = append(returnFunction1.name, databaseArray.Databases[i].Name)
+		returnFunction1.numberOfQuestions = append(returnFunction1.numberOfQuestions, databaseArray.Databases[i].NumberOfQuestions)
+	}
+	fmt.Println(returnFunction1.name)
+	fmt.Println(returnFunction1.ID)
+	fmt.Println(returnFunction1.numberOfQuestions)
+}
 
 func getBankHandler(w http.ResponseWriter, r *http.Request) {
 	databaseArray := DatabaseArray{}
@@ -130,6 +150,7 @@ func main() {
 		fmt.Println("Enter the information for the bank and you will be shown questions.")
 		//print instructions here
 	}
+	initialRead()
 	fmt.Print("Enter desired number of Question Banks:")
 	fmt.Scanln(&n)
 	s.ID = make([]string, 2*n)
