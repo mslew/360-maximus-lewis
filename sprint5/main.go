@@ -41,6 +41,13 @@ type StrArray struct {
 	ID []string `json:"id"`
 }
 
+func Welcome() {
+	fmt.Println("*********************************************************************")
+	fmt.Println("                      Welcome to the QuizMaster                      ")
+	fmt.Println("Follow directions or type 'help' for instructions, enter to continue.")
+	fmt.Println("*********************************************************************")
+}
+
 func getBankHandler(w http.ResponseWriter, r *http.Request) {
 	databaseArray := DatabaseArray{}
 	content, _ := os.Open("data.json")
@@ -115,6 +122,15 @@ func main() {
 	router := mux.NewRouter()
 	var s StrArray
 	var n int
+	var help string
+	Welcome()
+	fmt.Scanln(&help)
+	if help == "help" {
+		fmt.Println("The quizmaster is a comprehensive Quizing program that offers users quiz questions.")
+		fmt.Println("You will be offered two banks of questions to choose from.")
+		fmt.Println("Enter the information for the bank and you will be shown questions.")
+		//print instructions here
+	}
 	fmt.Print("Enter number of elements in array:")
 	fmt.Scanln(&n)
 	s.ID = make([]string, n)
