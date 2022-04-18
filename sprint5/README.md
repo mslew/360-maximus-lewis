@@ -2,7 +2,7 @@
 
 ### Contributors
 <p><br>Max Lewis: maximusslewis@lewisu.edu</br>
-<br>Anthony Mastores: anthonyjmastores@lewis.edu</br></p>
+<br>Anthony Mastores: anthonyjmastores@lewisu.edu</br></p>
 
 <p>This is Requirement 1-3 completed. This utilizes Google Cloud Functions to run a service that provides quiz questions 
 to a client program that will be developed later. So far there are two Cloud Functions. Function1 provides the
