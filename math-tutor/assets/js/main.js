@@ -1,8 +1,8 @@
 //questionCreator(level) creates random question based on level, keeps track of level and returns calculated answer
 //submitAnswer(correctAnswer) takes in user input answer, checks if correct -> green and next questions shown, if wrong red and allow 3 tries
-//doMath(expr)  calculates answer given operator
+//  (expr)  calculates answer given operator
 //help() shows game instrucions (possibly give dynamic hints)
-
+var level = 1
 //this function will determine the level and will send the heavy lifting to other functions
 function questionCreator(level){
     let max = 0; //max variable to generate random integers. used for generateRandomInt

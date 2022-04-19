@@ -6,8 +6,10 @@ body {
 .flexBox {
   align-items: center;
   display: flex;
-  justify-content: center;
+  right: 145425px;
   min-height: 93vh;
+  justify-content: center;
+
   width: 100%
 }
 .levelsMenu {  
