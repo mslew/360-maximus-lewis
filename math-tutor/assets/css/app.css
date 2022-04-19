@@ -1,0 +1,52 @@
+body {
+  background: #333
+}
+
+
+.flexBox {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 93vh;
+  width: 100%
+}
+.levelsMenu {  
+    display: inline-block;
+    list-style-type: none;
+    width: 200px
+}
+.levelsMenu a {
+    background-color: white;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+  }
+  
+.levelsMenu a:hover {
+    background-color: #ccc;
+  }
+  
+.levelsMenu a.help {
+    background-color: #04AA6D;
+    color: white;
+  }
+.mathCard {
+  background: white;
+  border-radius: 0.25rem;
+  padding:10rem
+}
+
+.questionText {
+padding-bottom: 8rem
+}
+
+.svg {
+  height: 24px;
+  width: 24px;
+}
+
+.correctAnswer {
+  color: #34a853;
+  font-size: 2rem
+}
