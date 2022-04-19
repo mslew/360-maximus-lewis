@@ -46,7 +46,6 @@ function questionCreator(level){
             return expr;
         case 10:
             let newLevel = Math.floor(Math.random() * (9 - 1 + 1) + 1); //generate a newLevel
-            newLevel = 5;
             console.log(newLevel); 
             expr = questionCreator(newLevel); //recall this function to call the newLevel
             return expr;
@@ -165,6 +164,27 @@ function doMath(expr){
     return answer;
 }
 
+//checks if user input is valid
+function submitChecker(answer){
+    answer.trim();
+    if(isNaN(answer) == true){
+        console.log("Enter a number"); //change this to HTML element later
+    }else{
+        answer = parseInt(answer);
+    }
+    return answer;
+}
+
+//check if user answer is correct 
+function checkAnswer(userAnswer, expr){
+    let answer = doMath(expr);
+    if(answer == parseInt(userAnswer)){
+        console.log("correct"); //change this to HTML later
+    }else{
+        console.log("incorrect"); //change this to HTML later
+    }
+}
+
 function main(){
     let level = 1; //each game will start at level 1
     let score = 0; //each game will start with a score of 0
@@ -175,6 +195,8 @@ function main(){
     expr = questionCreator(10);
     console.log(expr);
     answer = doMath(expr);
+    document.getElementById("equationText").innerHTML = expr;
+    submitChecker("1");
 }
 
 main();
