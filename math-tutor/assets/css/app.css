@@ -1,43 +1,51 @@
 body {
   background: #333
 }
-
+h1{
+  position: absolute;
+  left: 850px;
+  top: 0px;
+}
 
 .flexBox {
   align-items: center;
   display: flex;
-  right: 145425px;
-  min-height: 93vh;
+  min-height: 100vh;
   justify-content: center;
-
   width: 100%
 }
+
+.mathCard {
+  background: white;
+  border-radius: 0.25rem;
+  padding:10rem
+  
+}
+#highScore{
+  color: rgba(184, 20, 20, 0.774);
+  position: fixed;
+  bottom: 750px;
+  right: 540px;
+}
+#currentScore{
+  color: rgba(184, 20, 20, 0.774);
+  position: fixed;
+  bottom: 720px;
+  right: 522px;
+}
 .levelsMenu {  
-    display: inline-block;
+    text-align: center;
+
     list-style-type: none;
-    width: 200px
+    width: 200px;
 }
 .levelsMenu a {
-    background-color: white;
+    background-color: rgba(184, 20, 20, 0.774);
     color: black;
     display: block;
     padding: 12px;
     text-decoration: none;
   }
-  
-.levelsMenu a:hover {
-    background-color: #ccc;
-  }
-  
-.levelsMenu a.help {
-    background-color: #04AA6D;
-    color: white;
-  }
-.mathCard {
-  background: white;
-  border-radius: 0.25rem;
-  padding:10rem
-}
 
 .questionText {
 padding-bottom: 8rem

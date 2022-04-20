@@ -10,13 +10,14 @@
 </head>
 
 <body onload="questionCreator()">
-<center><h1 style="color:white;">Math Tutor</h1></center>
-
-  <div class="container-fluid">
+   
+<h1 style="color:white;"> Math Tutor </h1>
+<div class="container-fluid">
+    
     <div class="flexBox">
-        <div>
+        
+
         <ul class ="levelsMenu">
-            <li><a href="#" class="help">Help</a></li>
             <li id="1"> <a href="#">Level 10</a></li>
             <li id="2"><a href="#">Level 9</a></li>
             <li id="3"><a href="#">Level 8</a></li>
@@ -28,11 +29,11 @@
             <li id="9"><a href="#">Level 2</a></li>
             <li id="10"><a href="#">Level 1</a></li>
             </ul>
-        </div>
       <div class="mathCard">
-          
+        <div id ="highScore">High Score:</div>
+        <div id ="currentScore">Current Score:</div>
         <div class="mathQuestion">
-          <h1 class="display-4 questionText text-center mb-0" id="equationText">Placeholder Text</h1>
+          <h2 class="display-4 questionText text-center mb-0" id="equationText">Placeholder Text</h2>
         </div>
         <form id="mathForm">
           <div class="form-group">
@@ -46,8 +47,8 @@
         </div>
       </div>
     </div>
+</div>
     
-  </div>
   
   <!-- JavaScript file -->
   <script src="./assets/js/main.js"></script>
