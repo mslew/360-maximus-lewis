@@ -1,8 +1,11 @@
 let level = 1;
+
 //this function will determine the level and will send the heavy lifting to other functions
 function questionCreator(){
+    if (document.querySelector(".correctAnswer")) {
+        document.querySelector(".correctAnswer").remove();
+      }
     let expr = "";
-    let answer = 0; 
     switch(level){
         case 1:
             expr = createLevelOne(9);
@@ -47,8 +50,16 @@ function questionCreator(){
             answer = doMath(expr);
             break;
     }
-    console.log(level);
+    console.log("level = " +level);
     document.getElementById("equationText").innerHTML = expr;
+
+    var userAnswerInput = document.querySelector("#answerInput");
+    if (userAnswerInput.addEventListener) {
+        userAnswerInput.addEventListener("submit", submitAnswer(answer), false);
+    } else if (userAnswerInput.attachEvent) {
+        userAnswerInput.attachEvent("onsubmit", submitAnswer(answer));
+    }
+    return answer
 }
 
 //will return a random number in the range of 0 - max. 
@@ -139,7 +150,6 @@ function createLevelNine(max){
 
 //this function does the math and returns the answer
 function doMath(expr){
-    let answer = 0;
     let strArray = expr.split(/(\s+)/);
     let num1 = parseInt(strArray[0]);
     let operator = strArray[2];
@@ -163,6 +173,7 @@ function doMath(expr){
 }
 
 //checks if user input is valid
+/*
 function submitChecker(answer){
     answer.trim();
     if(isNaN(answer) == true){
@@ -171,19 +182,43 @@ function submitChecker(answer){
         answer = parseInt(answer);
     }
     return answer;
-}
+}*/
 
 //check if user answer is correct 
-function checkAnswer(userAnswer, expr){
-    let answer = doMath(expr);
-    let isAnswer = false;
-    if(answer == parseInt(userAnswer)){
+function submitAnswer(answer){
+    document.querySelector("#mathForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+         var userAnswer = document.querySelector("#answerInput").value;
+
+   console.log("answer = " + answer);
+   console.log("userAnswer = " + userAnswer);
+    if (userAnswer == answer){
         console.log("correct"); //change this to HTML later
         isAnswer = true;
+
+        //Display correct text on top, set background to green
+        document.getElementById("response").innerHTML = "CORRECT";
+        document.body.style.backgroundColor = "#34a853";
+      setTimeout(function() {
+        document.body.style.backgroundColor = "#333";
+      }, 1000);
+      document.getElementById("answerInput").value = "";
+      questionCreator();
+    
+       
     }else{
         console.log("incorrect"); //change this to HTML later
         isAnswer = false;
+
+        // Display incorrect text on top, set background to red
+        document.getElementById("response").innerHTML = "INCORRECT";
+        document.body.style.backgroundColor = "#dc3545";
+         document.getElementById("answerInput").value = "";
+      setTimeout(function() {
+        document.body.style.backgroundColor = "#333";
+      }, 1000);
     }
+    });
 }
 
 //determine the amount of points that needs to be added if a correct answer is chosen
@@ -208,7 +243,34 @@ function highScore(highScore, currentScore){
         return highScore;
     }
 }
-
+/*
+function submitAnswer(result){
+    document.querySelector("#mathForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        var userAnswer = document.querySelector("#answerInput").value;
+        var bool = (result == userAnswer) ? true : false;
+   
+        if (bool === true) {
+        document.getElementById("response").innerHTML("CORRECT");
+          // Set color to green for success
+          document.body.style.backgroundColor = "#34a853";
+          setTimeout(function() {
+            document.body.style.backgroundColor = "#333";
+          }, 1000);
+          // Clear input field
+          document.querySelector("#answerInput").value = "";
+          // Ask a new question
+          randomCreator();
+        } else {
+                    document.getElementById("response").innerHTML("INCORRECT");
+          // Set color to red for failure
+          document.body.style.backgroundColor = "#dc3545";
+          setTimeout(function() {
+            document.body.style.backgroundColor = "#333";
+          }, 1000);
+        }
+      });
+*/
 //fuunction that displays help message if user is in need of instruction of how the app works
 function help(){
     let msg = "This app is a comprehensive math tutor.\n"+
@@ -219,4 +281,7 @@ function help(){
         "If you are correct the submit button will turn green, if wrong the submit button will turn red.\n"+
         "The arrow button will restart the tutoring process.\n Good Luck!";
     document.getElementById("help").innerHTML = msg; 
+    setTimeout(function() {
+        document.getElementById("help").innerHTML = ""
+      }, 10000);  // 10 sec timeout funciton for help, could also refresh on any input
 }

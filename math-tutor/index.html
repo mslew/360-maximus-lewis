@@ -12,7 +12,7 @@
 <body onload="questionCreator()">
 
 <h1 style="color:white;"> Math Tutor</h1>
-<div class="container-fluid">
+<div class="container">
   <div class="flexBox">
     <ul class ="levelsMenu">
         <li id="1"> <a href="#">Level 10</a></li>
@@ -28,11 +28,15 @@
         </ul>
     <div class="mathCard">
       <div class="scores">
-        <p id ="highScore">High Score:</p>
-        <p id ="currentScore">Current Score:</p>
+        <p id ="highScore">High Score: 0</p>
+        <p id ="currentScore">Current Score: 0</p>
+      </div>
+      <div class ="responses">
+        <p id = "response">CORRECT/INCORRECT </p> 
       </div>
       <div class="mathQuestion">
-      <h2 class="display-4 questionText text-center mb-0" id="equationText">Placeholder Text</h2>
+      <h2 class="display-4 questionText text-center mb-0" id="equationText">T</h2>
+        
       </div>
         <form id="mathForm">
           <div class="form-group">
