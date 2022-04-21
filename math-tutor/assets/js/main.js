@@ -1,55 +1,54 @@
-//questionCreator(level) creates random question based on level, keeps track of level and returns calculated answer
-//submitAnswer(correctAnswer) takes in user input answer, checks if correct -> green and next questions shown, if wrong red and allow 3 tries
-//  (expr)  calculates answer given operator
-//help() shows game instrucions (possibly give dynamic hints)
-var level = 1
+let level = 1;
 //this function will determine the level and will send the heavy lifting to other functions
-function questionCreator(level){
-    let max = 0; //max variable to generate random integers. used for generateRandomInt
+function questionCreator(){
     let expr = "";
+    let answer = 0; 
     switch(level){
         case 1:
-            max = 9;
-            expr = createLevelOne(max);
-            return expr;
+            expr = createLevelOne(9);
+            answer = doMath(expr);
+            break;
         case 2:
-            max = 9;
-            expr = createLevelTwo(max);
-            return expr;
+            expr = createLevelTwo(9);
+            answer = doMath(expr);
+            break;
         case 3:
-            max = 9;
-            expr = createLevelThree(max);
-            return expr;
+            expr = createLevelThree(9);
+            answer = doMath(expr);
+            break;
         case 4:
-            max = 25;
-            expr = createLevelFour(max);
-            return expr;
+            expr = createLevelFour(25);
+            answer = doMath(expr);
+            break;
         case 5:
-            max = 50;
-            expr = createLevelFive(max);
-            return expr;
+            expr = createLevelFive(50);
+            answer = doMath(expr);
+            break;
         case 6:
-            max = 5;
-            expr = createLevelSix(max);
-            return expr;
+            expr = createLevelSix(5);
+            answer = doMath(expr);
+            break;
         case 7:
-            max = 12;
-            expr = createLevelSeven(max);
-            return expr;
+            expr = createLevelSeven(12);
+            answer = doMath(expr);
+            break;
         case 8:
-            max = 6;
-            expr = createLevelEight(max);
-            return expr;
+            expr = createLevelEight(6);
+            answer = doMath(expr);
+            break;
         case 9: 
-            max = 12;
-            expr = createLevelNine(max);
-            return expr;
+            expr = createLevelNine(12);
+            answer = doMath(expr);
+            break;
         case 10:
             let newLevel = Math.floor(Math.random() * (9 - 1 + 1) + 1); //generate a newLevel
             console.log(newLevel); 
             expr = questionCreator(newLevel); //recall this function to call the newLevel
-            return expr;
+            answer = doMath(expr);
+            break;
     }
+    console.log(level);
+    document.getElementById("equationText").innerHTML = expr;
 }
 
 //will return a random number in the range of 0 - max. 
@@ -160,7 +159,6 @@ function doMath(expr){
             answer = num1 / num2;
             break;
     }
-    console.log(answer);
     return answer;
 }
 
@@ -178,25 +176,47 @@ function submitChecker(answer){
 //check if user answer is correct 
 function checkAnswer(userAnswer, expr){
     let answer = doMath(expr);
+    let isAnswer = false;
     if(answer == parseInt(userAnswer)){
         console.log("correct"); //change this to HTML later
+        isAnswer = true;
     }else{
         console.log("incorrect"); //change this to HTML later
+        isAnswer = false;
     }
 }
 
-function main(){
-    let level = 1; //each game will start at level 1
-    let score = 0; //each game will start with a score of 0
-    let highScore = 0; //highscore will be kept track of
-    let expr = "";
-    let answer = 0;
-
-    expr = questionCreator(10);
-    console.log(expr);
-    answer = doMath(expr);
-    document.getElementById("equationText").innerHTML = expr;
-    submitChecker("1");
+//determine the amount of points that needs to be added if a correct answer is chosen
+function determinePoints(isAnswer, level){
+    let points = 0;
+    if(isAnswer){
+        points = level * 100
+    }
+    return points;
 }
 
-main();
+//function that keeps track of currentscore
+function currentScore(currentScore, newScore){
+    return (currentScore + newScore);
+}
+
+//function that determines the highscore and keeps track of that number
+function highScore(highScore, currentScore){
+    if (currentScore > highScore){
+        return currentScore;
+    }else{
+        return highScore;
+    }
+}
+
+//fuunction that displays help message if user is in need of instruction of how the app works
+function help(){
+    let msg = "This app is a comprehensive math tutor.\n"+
+        "This app will progressively get harder.\n"+
+        "It will start will start with addition, moving to subtraction, then multiplication and ending with division.\n" +
+        "It will end with the final level 10 as a mixture of all levels.\n\n" +
+        "Enter the answer to the equation into the box.\n" + 
+        "If you are correct the submit button will turn green, if wrong the submit button will turn red.\n"+
+        "The arrow button will restart the tutoring process.\n Good Luck!";
+    document.getElementById("help").innerHTML = msg; 
+}

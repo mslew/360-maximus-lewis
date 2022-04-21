@@ -10,48 +10,47 @@
 </head>
 
 <body onload="questionCreator()">
-   
-<h1 style="color:white;"> Math Tutor </h1>
-<div class="container-fluid">
-    
-    <div class="flexBox">
-        
 
-        <ul class ="levelsMenu">
-            <li id="1"> <a href="#">Level 10</a></li>
-            <li id="2"><a href="#">Level 9</a></li>
-            <li id="3"><a href="#">Level 8</a></li>
-            <li id="4"><a href="#">Level 7</a></li>
-            <li id="5"><a href="#">Level 6</a></li>
-            <li id="6"><a href="#">Level 5</a></li>
-            <li id="7"><a href="#">Level 4</a></li>
-            <li id="8"><a href="#">Level 3</a></li>
-            <li id="9"><a href="#">Level 2</a></li>
-            <li id="10"><a href="#">Level 1</a></li>
-            </ul>
-      <div class="mathCard">
-        <div id ="highScore">High Score:</div>
-        <div id ="currentScore">Current Score:</div>
-        <div class="mathQuestion">
-          <h2 class="display-4 questionText text-center mb-0" id="equationText">Placeholder Text</h2>
-        </div>
+<h1 style="color:white;"> Math Tutor</h1>
+<div class="container-fluid">
+  <div class="flexBox">
+    <ul class ="levelsMenu">
+        <li id="1"> <a href="#">Level 10</a></li>
+        <li id="2"><a href="#">Level 9</a></li>
+        <li id="3"><a href="#">Level 8</a></li>
+        <li id="4"><a href="#">Level 7</a></li>
+        <li id="5"><a href="#">Level 6</a></li>
+        <li id="6"><a href="#">Level 5</a></li>
+        <li id="7"><a href="#">Level 4</a></li>
+        <li id="8"><a href="#">Level 3</a></li>
+        <li id="9"><a href="#">Level 2</a></li>
+        <li id="10"><a href="#">Level 1</a></li>
+        </ul>
+    <div class="mathCard">
+      <div class="scores">
+        <p id ="highScore">High Score:</p>
+        <p id ="currentScore">Current Score:</p>
+      </div>
+      <div class="mathQuestion">
+      <h2 class="display-4 questionText text-center mb-0" id="equationText">Placeholder Text</h2>
+      </div>
         <form id="mathForm">
           <div class="form-group">
             <input type="text" class="form-control" id="answerInput" placeholder="Type your answer here">
           </div>
-          <button type="submit" class="btn btn-outline-primary w-100">Submit</button>
+          <button type="submit" class="btn btn-outline-primary w-100" onClick="questionCreator()">Submit</button>
         </form>
-        <div class="d-flex">
-          <button class="btn btn-outline-light w-100 mt-3" onclick="questionCreator()"><img class="svg" src="./assets/img/refresh.svg" alt="New Question" /></button>
-          <button class="btn btn-outline-light w-100 mt-3" onclick="answerHelp()"><img class="svg" src="./assets/img/answer.svg" alt="Answer" /></button>
+        <div class="resetHelpButtons">
+          <button class="resetButton" onclick="gameReset()">
+            <img class="resetImage" id="resetButton" width="35" height="35" src="./assets/img/refresh.svg"/></button>
+          <button class="helpButton" onclick="help()">
+            <img class="helpImage" id="helpButton" width="35" height="35" src="./assets/img/answer.svg"/></button>
         </div>
+        <div class="help"><p class="helpText" id="help"></p></div>
       </div>
-    </div>
+  </div>
 </div>
-    
-  
   <!-- JavaScript file -->
   <script src="./assets/js/main.js"></script>
 </body>
-
 </html>

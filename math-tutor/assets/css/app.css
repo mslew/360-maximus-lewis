@@ -1,6 +1,7 @@
 body {
   background: #333
 }
+
 h1{
   position: absolute;
   left: 850px;
@@ -12,43 +13,43 @@ h1{
   display: flex;
   min-height: 100vh;
   justify-content: center;
-  width: 100%
+  width: 100%;
 }
 
 .mathCard {
   background: white;
   border-radius: 0.25rem;
-  padding:10rem
-  
+  padding:10rem;
+  display: inline-block;
 }
-#highScore{
+
+.scores{
+  position: absolute;
+  text-align: right;
   color: rgba(184, 20, 20, 0.774);
-  position: fixed;
-  bottom: 750px;
-  right: 540px;
+  top: 0;
+  right: 0;
+  margin-right: 5em;
+  margin-top: 1em;
+  float: right;
 }
-#currentScore{
-  color: rgba(184, 20, 20, 0.774);
-  position: fixed;
-  bottom: 720px;
-  right: 522px;
-}
+
 .levelsMenu {  
     text-align: center;
-
     list-style-type: none;
     width: 200px;
 }
+
 .levelsMenu a {
     background-color: rgba(184, 20, 20, 0.774);
     color: black;
     display: block;
     padding: 12px;
     text-decoration: none;
-  }
+}
 
 .questionText {
-padding-bottom: 8rem
+  padding-bottom: 8rem
 }
 
 .svg {
@@ -59,4 +60,37 @@ padding-bottom: 8rem
 .correctAnswer {
   color: #34a853;
   font-size: 2rem
+}
+
+.resetHelpButtons{
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+}
+
+.resetButton {
+  size: 200px;
+  border: 2px solid #555;
+  padding: 1em;
+  margin-right: 2em;
+}
+
+.helpButton {
+  size: 200px;
+  border: 2px solid #555;
+  padding: 1em;
+  margin-left: 2em;
+}
+
+.help{
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+}
+
+.helpText{
+  text-align: center;
+  position: relative;
+  white-space: pre-line;
+  font-size: 1.5vmin;
 }
