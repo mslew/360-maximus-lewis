@@ -1,8 +1,8 @@
 let level = 1;
 let lives = 3;
 let levelCounter = 0;
-let currentS = 0;
-let highS = 0;
+let currentScore = 0;
+let highScore = 0;
 let GREEN = "#34a853";
 let RED = "#dc3545";
 let DEFAULT_COLOR = "#333";
@@ -95,11 +95,13 @@ function submitAnswer(answer){
     document.querySelector("#mathForm").addEventListener("submit", function(e) {
         e.stopPropagation(); //waits for response
         e.preventDefault(); //no refresh 
-        var userAnswer = document.querySelector("#answerInput").value;
-        console.log("answer = " + answer);
+    var userAnswer = document.querySelector("#answerInput").value;
+    console.log("answer = " + answer);
     console.log("userAnswer = " + userAnswer);
     var isCorrect = (answer == userAnswer) ? true : false;
     if (isCorrect){
+        updateCurrentScore();
+        updateHighScore();
         console.log("correct"); //change this to HTML later
         levelCounter +=  1/5; 
         var roundedL = Math.round(levelCounter * 10) / 10
@@ -149,9 +151,14 @@ function checkLives(){
 }
 function checkLevel(){
     let strLevel = level.toString();
-    document.getElementById(strLevel).style.backgroundColor = "#ffffff";
-    console.log("Level: "+ level);
-    console.log("LevelCounter: " + levelCounter);
+    document.getElementById(strLevel).style.background = GREEN;
+   // document.getElementById(strLevel).style.backgroundColor = "#ffffff"; //white
+    if (level == 11){
+        setTimeout(function() {
+            alert("CONGRATULATIONS POGCHAMP\nHighScore: " + highScore + "\nPress Enter to Play Again!");
+            document.location.reload();
+        }, 200); 
+    }
 }
 //will return a random number in the range of 0 - max. 
 function generateRandomInt(max){
@@ -264,24 +271,31 @@ function doMath(expr){
 }
 
 //determine the amount of points that needs to be added if a correct answer is chosen
-function determinePoints(isAnswer, level){
+function determinePoints(){
     let points = 0;
-    if(isAnswer){
-        points = level * 100
-    }
+    points = level * 100
+
     return points;
 }
 
 //function that keeps track of currentscore
-function updateCurrentScore(currentScore, newScore){
-    return (currentScore + newScore);
+function updateCurrentScore(){
+    addScore = determinePoints();
+    currentScore += addScore;
+    console.log("addScore: " + addScore);
+    console.log("currentScore: " + currentScore);
+    //let strCS = toString(currentScore);
+    document.getElementById("currentScore").innerHTML = "Current Score: ".concat(currentScore);
 }
 
 //function that determines the highscore and keeps track of that number
-function determineHighScore(highScore, currentScore){
-    if (currentScore > highScore){
+function updateHighScore(){
+    if (currentScore >= highScore){
         //change highscore to be currentscore
-        document.cookie = currentScore;
+      //  document.cookie = currentScore;
+        strHighS = toString(highScore);
+        console.log("highScore: " + highScore);
+        document.getElementById("highScore").innerHTML = "High Score: ".concat(currentScore);
     }else{
         //leave highscore
     }
