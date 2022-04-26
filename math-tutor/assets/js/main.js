@@ -1,10 +1,18 @@
 let level = 1;
-
+let lives = 3;
+let levelCounter = 0;
 //this function will determine the level and will send the heavy lifting to other functions
-function questionCreator(){
-    if (document.querySelector(".correctAnswer")) {
-        document.querySelector(".correctAnswer").remove();
-      }
+function startGame(){
+    questionCreator();
+    let userAnswerInput = document.querySelector("#answerInput");
+    if (userAnswerInput.addEventListener) {
+      userAnswerInput.addEventListener("submit", submitAnswer(answer), false);
+    } else if (userAnswerInput.attachEvent) {
+      userAnswerInput.attachEvent("onsubmit", submitAnswer(answer));
+    }
+}
+function  questionCreator(){
+    checkLevel();
     let expr = "";
     switch(level){
         case 1:
@@ -50,18 +58,85 @@ function questionCreator(){
             answer = doMath(expr);
             break;
     }
-    console.log("level = " +level);
     document.getElementById("equationText").innerHTML = expr;
-
-    var userAnswerInput = document.querySelector("#answerInput");
-    if (userAnswerInput.addEventListener) {
-        userAnswerInput.addEventListener("submit", submitAnswer(answer), false);
-    } else if (userAnswerInput.attachEvent) {
-        userAnswerInput.attachEvent("onsubmit", submitAnswer(answer));
-    }
+     console.log("QCreator answer: " + answer);
+   
     return answer
 }
 
+function submitAnswer(answer){
+    document.querySelector("#mathForm").addEventListener("submit", function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var userAnswer = document.querySelector("#answerInput").value;
+        console.log("answer = " + answer);
+   console.log("userAnswer = " + userAnswer);
+   var bool = (answer == userAnswer) ? true : false;
+    if (bool){
+        console.log("correct"); //change this to HTML later
+        levelCounter +=  1/10; 
+        var roundedL = Math.round(levelCounter * 10) / 10
+
+        if (roundedL > .99 && roundedL == 1)   { //is whole number, handles wonky rounding
+            level += levelCounter; 
+            levelCounter = 0; rounded = 0;
+        }
+        //Display correct text on top, set background to green
+        document.body.style.backgroundColor = "#34a853";
+      setTimeout(function() {
+        document.body.style.backgroundColor = "#333";
+      }, 1000);
+      document.querySelector("#answerInput").value = "";
+     answer =  questionCreator();
+    
+       
+    }else{
+        lives --;
+        checkLives();
+        console.log("incorrect"); //change this to HTML later
+        isAnswer = false;
+
+        // Display incorrect text on top, set background to red
+        document.body.style.backgroundColor = "#dc3545";
+         //document.getElementById("answerInput").value = "";
+         
+      setTimeout(function() {
+        document.body.style.backgroundColor = "#333";
+      }, 1000);
+      
+      
+    }
+    
+    })
+   
+function checkLives(){
+    if (lives == 2 ){
+        document.getElementById("heart3").style.display='none';
+        
+    }else if( lives ==1){
+        document.getElementById("heart2").style.display='none';
+
+    }else {
+        document.getElementById("heart1").style.display='none';
+         setTimeout(function() {
+            alert("GAME OVER\nPress Enter to Play Again!");
+            document.location.reload();
+         }, 200);  
+         
+        /*
+         document.getElementById("box").style.display = "none";
+         document.getElementById("gameover-screen").style.display = "block";
+         */
+        }
+    }  
+    
+}
+function checkLevel(){
+    let strLevel = level.toString();
+    document.getElementById(strLevel).style.backgroundColor = "#ffffff";
+    console.log("Level: "+ level);
+    console.log("LevelCounter: " + levelCounter);
+}
 //will return a random number in the range of 0 - max. 
 function generateRandomInt(max){
     return Math.floor(Math.random() * (max + 1));
@@ -185,41 +260,7 @@ function submitChecker(answer){
 }*/
 
 //check if user answer is correct 
-function submitAnswer(answer){
-    document.querySelector("#mathForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-         var userAnswer = document.querySelector("#answerInput").value;
 
-   console.log("answer = " + answer);
-   console.log("userAnswer = " + userAnswer);
-    if (userAnswer == answer){
-        console.log("correct"); //change this to HTML later
-        isAnswer = true;
-
-        //Display correct text on top, set background to green
-        document.getElementById("response").innerHTML = "CORRECT";
-        document.body.style.backgroundColor = "#34a853";
-      setTimeout(function() {
-        document.body.style.backgroundColor = "#333";
-      }, 1000);
-      document.getElementById("answerInput").value = "";
-      questionCreator();
-    
-       
-    }else{
-        console.log("incorrect"); //change this to HTML later
-        isAnswer = false;
-
-        // Display incorrect text on top, set background to red
-        document.getElementById("response").innerHTML = "INCORRECT";
-        document.body.style.backgroundColor = "#dc3545";
-         document.getElementById("answerInput").value = "";
-      setTimeout(function() {
-        document.body.style.backgroundColor = "#333";
-      }, 1000);
-    }
-    });
-}
 
 //determine the amount of points that needs to be added if a correct answer is chosen
 function determinePoints(isAnswer, level){
@@ -243,34 +284,7 @@ function highScore(highScore, currentScore){
         return highScore;
     }
 }
-/*
-function submitAnswer(result){
-    document.querySelector("#mathForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        var userAnswer = document.querySelector("#answerInput").value;
-        var bool = (result == userAnswer) ? true : false;
-   
-        if (bool === true) {
-        document.getElementById("response").innerHTML("CORRECT");
-          // Set color to green for success
-          document.body.style.backgroundColor = "#34a853";
-          setTimeout(function() {
-            document.body.style.backgroundColor = "#333";
-          }, 1000);
-          // Clear input field
-          document.querySelector("#answerInput").value = "";
-          // Ask a new question
-          randomCreator();
-        } else {
-                    document.getElementById("response").innerHTML("INCORRECT");
-          // Set color to red for failure
-          document.body.style.backgroundColor = "#dc3545";
-          setTimeout(function() {
-            document.body.style.backgroundColor = "#333";
-          }, 1000);
-        }
-      });
-*/
+
 //fuunction that displays help message if user is in need of instruction of how the app works
 function help(){
     let msg = "This app is a comprehensive math tutor.\n"+
