@@ -1,7 +1,11 @@
 let level = 1;
 let lives = 3;
 let levelCounter = 0;
+let currentS = 0;
+let highS = 0;
+
 //this function will determine the level and will send the heavy lifting to other functions
+
 function startGame(){
     questionCreator();
     let userAnswerInput = document.querySelector("#answerInput");
@@ -10,7 +14,26 @@ function startGame(){
     } else if (userAnswerInput.attachEvent) {
       userAnswerInput.attachEvent("onsubmit", submitAnswer(answer));
     }
+    
 }
+function resetGame(){
+    document.getElementById("heart3").style.display='block';
+    document.getElementById("heart2").style.display='block';
+    resetG = true;
+    lives = 3;
+    currentS = 0;
+    highS = 0;
+    level = 1;
+    levelCounter = 0;
+    for (let i = 2; i <= 10; i ++){ //reset level background colors
+        let strLevel = i.toString();
+        document.getElementById(strLevel).style.backgroundColor = "rgba(184, 20, 20, 0.774)";
+
+    }
+    //let a = questionCreator();   
+    //submitAnswer(a);  creates two event listeners again, temp sol. answer old question works
+}
+
 function  questionCreator(){
     checkLevel();
     let expr = "";
@@ -74,7 +97,7 @@ function submitAnswer(answer){
    var bool = (answer == userAnswer) ? true : false;
     if (bool){
         console.log("correct"); //change this to HTML later
-        levelCounter +=  1/10; 
+        levelCounter +=  1/5; 
         var roundedL = Math.round(levelCounter * 10) / 10
 
         if (roundedL > .99 && roundedL == 1)   { //is whole number, handles wonky rounding
@@ -108,7 +131,7 @@ function submitAnswer(answer){
     }
     
     })
-   
+
 function checkLives(){
     if (lives == 2 ){
         document.getElementById("heart3").style.display='none';
@@ -246,21 +269,6 @@ function doMath(expr){
     }
     return answer;
 }
-
-//checks if user input is valid
-/*
-function submitChecker(answer){
-    answer.trim();
-    if(isNaN(answer) == true){
-        console.log("Enter a number"); //change this to HTML element later
-    }else{
-        answer = parseInt(answer);
-    }
-    return answer;
-}*/
-
-//check if user answer is correct 
-
 
 //determine the amount of points that needs to be added if a correct answer is chosen
 function determinePoints(isAnswer, level){
