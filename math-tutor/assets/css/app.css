@@ -2,10 +2,9 @@ body {
   background: #333
 }
 
-h1{
-  position: absolute;
-  left: 850px;
-  top: 0px;
+.title{
+  text-align: center;
+  padding-left: 12rem;
 }
 
 .flexBox {
@@ -19,7 +18,7 @@ h1{
 .mathCard {
   background: white;
   border-radius: 0.25rem;
-  padding:10rem;
+  padding:8rem;
   display: inline-block;
 }
 

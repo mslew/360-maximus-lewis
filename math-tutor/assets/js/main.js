@@ -3,8 +3,10 @@ let lives = 3;
 let levelCounter = 0;
 let currentS = 0;
 let highS = 0;
+let GREEN = "#34a853";
+let RED = "#dc3545";
+let DEFAULT_COLOR = "#333";
 
-//this function will determine the level and will send the heavy lifting to other functions
 
 function startGame(){
     questionCreator();
@@ -16,6 +18,8 @@ function startGame(){
     }
     
 }
+
+//resets the game 
 function resetGame(){
     document.getElementById("heart3").style.display='block';
     document.getElementById("heart2").style.display='block';
@@ -34,6 +38,7 @@ function resetGame(){
     //submitAnswer(a);  creates two event listeners again, temp sol. answer old question works
 }
 
+//this function will determine the level and will send the heavy lifting to other functions
 function  questionCreator(){
     checkLevel();
     let expr = "";
@@ -82,20 +87,19 @@ function  questionCreator(){
             break;
     }
     document.getElementById("equationText").innerHTML = expr;
-     console.log("QCreator answer: " + answer);
-   
+    console.log("QCreator answer: " + answer);
     return answer
 }
 
 function submitAnswer(answer){
     document.querySelector("#mathForm").addEventListener("submit", function(e) {
-        e.stopPropagation();
-        e.preventDefault();
+        e.stopPropagation(); //waits for response
+        e.preventDefault(); //no refresh 
         var userAnswer = document.querySelector("#answerInput").value;
         console.log("answer = " + answer);
-   console.log("userAnswer = " + userAnswer);
-   var bool = (answer == userAnswer) ? true : false;
-    if (bool){
+    console.log("userAnswer = " + userAnswer);
+    var isCorrect = (answer == userAnswer) ? true : false;
+    if (isCorrect){
         console.log("correct"); //change this to HTML later
         levelCounter +=  1/5; 
         var roundedL = Math.round(levelCounter * 10) / 10
@@ -105,14 +109,13 @@ function submitAnswer(answer){
             levelCounter = 0; rounded = 0;
         }
         //Display correct text on top, set background to green
-        document.body.style.backgroundColor = "#34a853";
-      setTimeout(function() {
-        document.body.style.backgroundColor = "#333";
-      }, 1000);
-      document.querySelector("#answerInput").value = "";
-     answer =  questionCreator();
+        document.body.style.backgroundColor = GREEN;
+        setTimeout(function() {
+            document.body.style.backgroundColor = DEFAULT_COLOR;
+        }, 1000);
+    document.querySelector("#answerInput").value = "";
+    answer =  questionCreator();
     
-       
     }else{
         lives --;
         checkLives();
@@ -120,16 +123,11 @@ function submitAnswer(answer){
         isAnswer = false;
 
         // Display incorrect text on top, set background to red
-        document.body.style.backgroundColor = "#dc3545";
-         //document.getElementById("answerInput").value = "";
-         
-      setTimeout(function() {
+        document.body.style.backgroundColor = RED;
+    setTimeout(function() {
         document.body.style.backgroundColor = "#333";
-      }, 1000);
-      
-      
+    }, 1000);
     }
-    
     })
 
 function checkLives(){
@@ -141,15 +139,10 @@ function checkLives(){
 
     }else {
         document.getElementById("heart1").style.display='none';
-         setTimeout(function() {
+        setTimeout(function() {
             alert("GAME OVER\nPress Enter to Play Again!");
             document.location.reload();
-         }, 200);  
-         
-        /*
-         document.getElementById("box").style.display = "none";
-         document.getElementById("gameover-screen").style.display = "block";
-         */
+        }, 200);  
         }
     }  
     
@@ -280,17 +273,26 @@ function determinePoints(isAnswer, level){
 }
 
 //function that keeps track of currentscore
-function currentScore(currentScore, newScore){
+function updateCurrentScore(currentScore, newScore){
     return (currentScore + newScore);
 }
 
 //function that determines the highscore and keeps track of that number
-function highScore(highScore, currentScore){
+function determineHighScore(highScore, currentScore){
     if (currentScore > highScore){
-        return currentScore;
+        //change highscore to be currentscore
+        document.cookie = currentScore;
     }else{
-        return highScore;
+        //leave highscore
     }
+}
+
+function readHighScore(highScore){
+    let thisScore = document.cookie;
+    if (highScore == null){
+        document.cookie = highScore;
+    }
+    return highScore;
 }
 
 //fuunction that displays help message if user is in need of instruction of how the app works
