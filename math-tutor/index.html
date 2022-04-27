@@ -15,22 +15,20 @@
 <div class="container">
   <div class="flexBox" id = "box">
     <ul class ="levelsMenu" id = lMenu>
-        <li id="10"> <a href="#">Level 10</a></li>
-        <li id="9"><a href="#">Level 9</a></li>
-        <li id="8"><a href="#">Level 8</a></li>
-        <li id="7"><a href="#">Level 7</a></li>
-        <li id="6"><a href="#">Level 6</a></li>
-        <li id="5"><a href="#">Level 5</a></li>
-        <li id="4"><a href="#">Level 4</a></li>
-        <li id="3"><a href="#">Level 3</a></li>
-        <li id="2"><a href="#">Level 2</a></li>
-        <li id="1"><a href="#">Level 1</a></li>
+        <li class="l10" id="10"> <a href="#">Level 10</a></li>
+        <li class="l9" id="9"><a href="#">Level 9</a></li>
+        <li class="l8" id="8"><a href="#">Level 8</a></li>
+        <li class="l7" id="7"><a href="#">Level 7</a></li>
+        <li class="l6" id="6"><a href="#">Level 6</a></li>
+        <li class="l5" id="5"><a href="#">Level 5</a></li>
+        <li class="l4" id="4"><a href="#">Level 4</a></li>
+        <li class="l3" id="3"><a href="#">Level 3</a></li>
+        <li class="l2" id="2"><a href="#">Level 2</a></li>
+        <li class="l1" id="1"><a href="#">Level 1</a></li>
         </ul>
     <div class="mathCard">
-      <div class="scores">
-        <p id ="highScore">High Score: 0</p>
-        <p id ="currentScore">Current Score: 0</p>
-      </div>
+      <h1 class="incorrectCorrect" id="verdict"></h1>
+      <h1 class = "score" id ="currentScore">Current Score: 0</h1>
       <div class = "lives">
         <img class = "w3-round" id = "heart1" width = "35" height = "35" src = "./assets/img/heart.jpg"/>
         <img class = "w3-round" id = "heart2" width = "35" height = "35" src = "./assets/img/heart.jpg"/>
@@ -42,8 +40,7 @@
         
       </div>
         <form id="mathForm">
-            <input type="text" class="form-control" id="answerInput" placeholder="Type your answer here">
-
+            <input type="text" class="form-control" id="answerInput" placeholder="Type your answer here" autocomplete="off">
             <button type="submit" class="btn btn-outline-primary w-100" >Submit</button>
         </form>
         <div class="resetHelpButtons">

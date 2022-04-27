@@ -1,41 +1,42 @@
-let level = 1;
+//set constants at game start
+let level = 1; //change this to 1 later
 let lives = 3;
-let levelCounter = 0;
+let levelProgress = 0; //change this to 0 later
 let currentScore = 0;
-let highScore = 0;
 let GREEN = "#34a853";
 let RED = "#dc3545";
+let ON_LEVEL_COLOR = "#d8ae37"; //color for current level user is on
+let NOT_ON_LEVEL_COLOR = "#3761d8"; //color for level(s) that user is not on
 let DEFAULT_COLOR = "#333";
 
-
+//this function is called when the game first loads
 function startGame(){
     questionCreator();
     let userAnswerInput = document.querySelector("#answerInput");
     if (userAnswerInput.addEventListener) {
-      userAnswerInput.addEventListener("submit", submitAnswer(answer), false);
+        userAnswerInput.addEventListener("submit", submitAnswer(answer), false);
     } else if (userAnswerInput.attachEvent) {
-      userAnswerInput.attachEvent("onsubmit", submitAnswer(answer));
+        userAnswerInput.attachEvent("onsubmit", submitAnswer(answer));
     }
-    
 }
 
 //resets the game 
 function resetGame(){
     document.getElementById("heart3").style.display='block';
     document.getElementById("heart2").style.display='block';
-    resetG = true;
-    lives = 3;
-    currentS = 0;
-    highS = 0;
     level = 1;
-    levelCounter = 0;
-    for (let i = 2; i <= 10; i ++){ //reset level background colors
+    lives = 3;
+    levelProgress = 0;
+    currentScore = 0;
+    for (let i = 10; i > 1; i--){ //reset level background colors
         let strLevel = i.toString();
-        document.getElementById(strLevel).style.backgroundColor = "rgba(184, 20, 20, 0.774)";
-
+        document.getElementById(strLevel).style.backgroundColor = NOT_ON_LEVEL_COLOR;
+        document.getElementById(strLevel).style.color = NOT_ON_LEVEL_COLOR;
     }
-    //let a = questionCreator();   
-    //submitAnswer(a);  creates two event listeners again, temp sol. answer old question works
+    document.getElementById("1").style.backgroundColor = ON_LEVEL_COLOR;
+    document.getElementById("1").style.color = ON_LEVEL_COLOR;
+    document.getElementById("currentScore").innerHTML = "Current Score: 0"
+    startGame();
 }
 
 //this function will determine the level and will send the heavy lifting to other functions
@@ -80,9 +81,7 @@ function  questionCreator(){
             answer = doMath(expr);
             break;
         case 10:
-            let newLevel = Math.floor(Math.random() * (9 - 1 + 1) + 1); //generate a newLevel
-            console.log(newLevel); 
-            expr = questionCreator(newLevel); //recall this function to call the newLevel
+            expr = createLevelTen();
             answer = doMath(expr);
             break;
     }
@@ -99,67 +98,67 @@ function submitAnswer(answer){
     console.log("answer = " + answer);
     console.log("userAnswer = " + userAnswer);
     var isCorrect = (answer == userAnswer) ? true : false;
+    document.getElementById("answerInput").value = "";
     if (isCorrect){
         updateCurrentScore();
-        updateHighScore();
-        console.log("correct"); //change this to HTML later
-        levelCounter +=  1/5; 
-        var roundedL = Math.round(levelCounter * 10) / 10
-
-        if (roundedL > .99 && roundedL == 1)   { //is whole number, handles wonky rounding
-            level += levelCounter; 
-            levelCounter = 0; rounded = 0;
+        document.getElementById("verdict").innerHTML="Correct!";
+        document.getElementById("verdict").style.color=GREEN;
+        levelProgress += 1; 
+        if (levelProgress == 5){ 
+            level++; 
+            levelProgress = 0; 
         }
         //Display correct text on top, set background to green
         document.body.style.backgroundColor = GREEN;
         setTimeout(function() {
             document.body.style.backgroundColor = DEFAULT_COLOR;
+            document.getElementById("verdict").innerHTML="";
         }, 1000);
-    document.querySelector("#answerInput").value = "";
-    answer =  questionCreator();
-    
+        answer = questionCreator();    
     }else{
         lives --;
         checkLives();
-        console.log("incorrect"); //change this to HTML later
+        document.getElementById("verdict").innerHTML="Incorrect";
+        document.getElementById("verdict").style.color=RED;
         isAnswer = false;
-
-        // Display incorrect text on top, set background to red
         document.body.style.backgroundColor = RED;
-    setTimeout(function() {
-        document.body.style.backgroundColor = "#333";
-    }, 1000);
+        setTimeout(function() {
+            document.body.style.backgroundColor = DEFAULT_COLOR;
+            document.getElementById("verdict").innerHTML="";
+        }, 1000);
     }
     })
+}
 
+//check live of user. If some are missing get rid of heart on display.
 function checkLives(){
     if (lives == 2 ){
         document.getElementById("heart3").style.display='none';
-        
     }else if( lives ==1){
         document.getElementById("heart2").style.display='none';
-
     }else {
         document.getElementById("heart1").style.display='none';
         setTimeout(function() {
             alert("GAME OVER\nPress Enter to Play Again!");
             document.location.reload();
         }, 200);  
-        }
-    }  
-    
-}
+    }
+}     
+
+//check what level the user is on and make sure to display correct colors
 function checkLevel(){
-    let strLevel = level.toString();
-    document.getElementById(strLevel).style.background = GREEN;
-   // document.getElementById(strLevel).style.backgroundColor = "#ffffff"; //white
-    if (level == 11){
+    if (level >= 11){
         setTimeout(function() {
-            alert("CONGRATULATIONS POGCHAMP\nHighScore: " + highScore + "\nPress Enter to Play Again!");
+            alert("CONGRATULATIONS POGCHAMP\nCurrenScore: " + currentScore + "\nPress Enter to Play Again!");
             document.location.reload();
         }, 200); 
+    }else{
+        let strLevel = level.toString();
+    document.getElementById(strLevel).style.backgroundColor = ON_LEVEL_COLOR;
+    document.getElementById(strLevel).style.color = ON_LEVEL_COLOR;
     }
 }
+
 //will return a random number in the range of 0 - max. 
 function generateRandomInt(max){
     return Math.floor(Math.random() * (max + 1));
@@ -244,7 +243,40 @@ function createLevelNine(max){
 }
 
 //Level 10. All previous levels combined. questionCreator case 10 for this implementation. 
-
+function createLevelTen(){
+    let choice = Math.floor(Math.random() * (9 - 1 + 1) + 1); //inclusive range. Math.random() * (max - min + 1) + min
+    let expr = "";
+    switch(choice){
+        case 9:
+            expr = createLevelNine(12)
+            break;
+        case 8:
+            expr = createLevelEight(6)
+            break;
+        case 7:
+            expr = createLevelSeven(12)
+            break;
+        case 6:
+            expr = createLevelSix(5)
+            break;
+        case 5:
+            expr = createLevelFive(50)
+            break;
+        case 4:
+            expr = createLevelFour(25)
+            break;
+        case 3:
+            expr = createLevelThree(9)
+            break;
+        case 2:
+            expr = createLevelTwo(9)
+            break;
+        case 1:
+            expr = createLevelOne(9)
+            break;
+    }
+    return expr;
+}
 
 //this function does the math and returns the answer
 function doMath(expr){
@@ -252,7 +284,6 @@ function doMath(expr){
     let num1 = parseInt(strArray[0]);
     let operator = strArray[2];
     let num2 = parseInt(strArray[4]);
-
     switch(operator){
         case "+":
             answer = num1 + num2;
@@ -274,7 +305,6 @@ function doMath(expr){
 function determinePoints(){
     let points = 0;
     points = level * 100
-
     return points;
 }
 
@@ -284,29 +314,7 @@ function updateCurrentScore(){
     currentScore += addScore;
     console.log("addScore: " + addScore);
     console.log("currentScore: " + currentScore);
-    //let strCS = toString(currentScore);
     document.getElementById("currentScore").innerHTML = "Current Score: ".concat(currentScore);
-}
-
-//function that determines the highscore and keeps track of that number
-function updateHighScore(){
-    if (currentScore >= highScore){
-        //change highscore to be currentscore
-      //  document.cookie = currentScore;
-        strHighS = toString(highScore);
-        console.log("highScore: " + highScore);
-        document.getElementById("highScore").innerHTML = "High Score: ".concat(currentScore);
-    }else{
-        //leave highscore
-    }
-}
-
-function readHighScore(highScore){
-    let thisScore = document.cookie;
-    if (highScore == null){
-        document.cookie = highScore;
-    }
-    return highScore;
 }
 
 //fuunction that displays help message if user is in need of instruction of how the app works
@@ -316,7 +324,7 @@ function help(){
         "It will start will start with addition, moving to subtraction, then multiplication and ending with division.\n" +
         "It will end with the final level 10 as a mixture of all levels.\n\n" +
         "Enter the answer to the equation into the box.\n" + 
-        "If you are correct the submit button will turn green, if wrong the submit button will turn red.\n"+
+        "If you are correct the screen will turn green, if wrong the screen will turn red.\n"+
         "The arrow button will restart the tutoring process.\n Good Luck!";
     document.getElementById("help").innerHTML = msg; 
     setTimeout(function() {

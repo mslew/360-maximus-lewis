@@ -22,15 +22,16 @@ body {
   display: inline-block;
 }
 
-.scores{
+.score{
   position: absolute;
   text-align: right;
-  color: rgba(184, 20, 20, 0.774);
+  color: white;
   top: 0;
   right: 0;
   margin-right: 5em;
   margin-top: 1em;
   float: right;
+  font-size: 1.25em;
 }
 
 .levelsMenu {  
@@ -40,11 +41,50 @@ body {
 }
 
 .levelsMenu a {
-    background-color: rgba(184, 20, 20, 0.774);
     color: black;
     display: block;
     padding: 12px;
     text-decoration: none;
+}
+
+.l10{
+  background-color: #3761d8;
+}
+
+.l9{
+  background-color: #3761d8;
+}
+
+.l8{
+  background-color: #3761d8;
+}
+
+.l7{
+  background-color: #3761d8;
+}
+
+.l6{
+  background-color: #3761d8;
+}
+
+.l5{
+  background-color: #3761d8;
+}
+
+.l4{
+  background-color: #3761d8;
+}
+
+.l3{
+  background-color: #3761d8;
+}
+
+.l2{
+  background-color: #3761d8;
+}
+
+.l1{
+  background-color: #3761d8;
 }
 
 .questionText {
@@ -56,10 +96,14 @@ body {
   width: 24px;
 }
 
-.correctAnswer {
+.incorrectCorrect {
+  display: flex;
+  text-align: center;
+  justify-content: center;
   color: #34a853;
-  font-size: 2rem
+  font-size: 2.5rem
 }
+
 .lives{
   display: flex;
   justify-content: center;
