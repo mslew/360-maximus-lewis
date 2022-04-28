@@ -27,21 +27,6 @@ function startGame(){
 //resets the game 
 function resetGame(){
     document.location.reload();
-    /**document.getElementById("heart3").style.display='block';
-    document.getElementById("heart2").style.display='block';
-    level = 1;
-    lives = 3;
-    levelProgress = 0;
-    currentScore = 0;
-    for (let i = 10; i > 1; i--){ //reset level background colors
-        let strLevel = i.toString();
-        document.getElementById(strLevel).style.backgroundColor = NOT_ON_LEVEL_COLOR;
-        document.getElementById(strLevel).style.color = NOT_ON_LEVEL_COLOR;
-    }
-    document.getElementById("1").style.backgroundColor = ON_LEVEL_COLOR;
-    document.getElementById("1").style.color = ON_LEVEL_COLOR;
-    document.getElementById("currentScore").innerHTML = "Current Score: 0"
-    questionCreator();**/
 }
 
 //this function will determine the level and will send the heavy lifting to other functions
@@ -324,11 +309,11 @@ function updateCurrentScore(){
 } 
 
 //setCookie method for HighScore
-function setCookie(name,value,days) {
+function setCookie(name, value, days) {
     var expires = "";
     if (days) {
         var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
@@ -338,23 +323,23 @@ function setCookie(name,value,days) {
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
+    for(var i = 0;i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        while (c.charAt(0) ==' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
 
 //function to set the highscore
 function setHighScore(){
-    let highScore = getCookie("HighScore");
-    if(highScore == null){
-        setCookie("HighScore", 0, 7);
+    if(getCookie("highScore") == null){
+        setCookie("highScore", 0, 7);
     }
-    if(highScore < currentScore){
+    let highScore = getCookie("highScore");
+    if(highScore <= currentScore){
         document.getElementById("highScore").innerHTML = "High Score: ".concat(currentScore);
-        setCookie("HighScore", currentScore, 7);
+        setCookie("highScore", currentScore, 7);
     }else{
         document.getElementById("highScore").innerHTML = "High Score: ".concat(highScore);
     }
@@ -370,8 +355,4 @@ function help(){
         "If you are correct the screen will turn green, if wrong the screen will turn red.\n"+
         "The arrow button will restart the tutoring process.\n Good Luck!";
     alert(msg);
-    //document.getElementById("help").innerHTML = msg; 
-    /**setTimeout(function() {
-        //document.getElementById("help").innerHTML = ""
-      }, 10000);  // 10 sec timeout funciton for help, could also refresh on any input**/
 }
