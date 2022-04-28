@@ -1,13 +1,16 @@
-//set constants at game start
-let level = 1; //change this to 1 later
-let lives = 3;
-let levelProgress = 0; //change this to 0 later
-let currentScore = 0;
+//constants for colors
 let GREEN = "#34a853";
 let RED = "#dc3545";
 let ON_LEVEL_COLOR = "#d8ae37"; //color for current level user is on
 let NOT_ON_LEVEL_COLOR = "#3761d8"; //color for level(s) that user is not on
 let DEFAULT_COLOR = "#333";
+
+
+//set vaalues at game start
+let level = 1; 
+let lives = 3;
+let levelProgress = 0; 
+let currentScore = 0;
 
 //this function is called when the game first loads
 function startGame(){
@@ -18,6 +21,7 @@ function startGame(){
     } else if (userAnswerInput.attachEvent) {
         userAnswerInput.attachEvent("onsubmit", submitAnswer(answer));
     }
+    setHighScore();
 }
 
 //resets the game 
@@ -94,39 +98,40 @@ function submitAnswer(answer){
     document.querySelector("#mathForm").addEventListener("submit", function(e) {
         e.stopPropagation(); //waits for response
         e.preventDefault(); //no refresh 
-    var userAnswer = document.querySelector("#answerInput").value;
-    console.log("answer = " + answer);
-    console.log("userAnswer = " + userAnswer);
-    var isCorrect = (answer == userAnswer) ? true : false;
-    document.getElementById("answerInput").value = "";
-    if (isCorrect){
-        updateCurrentScore();
-        document.getElementById("verdict").innerHTML="Correct!";
-        document.getElementById("verdict").style.color=GREEN;
-        levelProgress += 1; 
-        if (levelProgress == 5){ 
-            level++; 
-            levelProgress = 0; 
+        var userAnswer = document.querySelector("#answerInput").value;
+        console.log("answer = " + answer);
+        console.log("userAnswer = " + userAnswer);
+        var isCorrect = (answer == userAnswer) ? true : false;
+        document.getElementById("answerInput").value = "";
+        if (isCorrect){
+            updateCurrentScore();
+            setHighScore();
+            document.getElementById("verdict").innerHTML="Correct!";
+            document.getElementById("verdict").style.color=GREEN;
+            levelProgress += 1; 
+            if (levelProgress == 5){ 
+                level++; 
+                levelProgress = 0; 
+            }
+            //Display correct text on top, set background to green
+            document.body.style.backgroundColor = GREEN;
+            setTimeout(function() {
+                document.body.style.backgroundColor = DEFAULT_COLOR;
+                document.getElementById("verdict").innerHTML="";
+            }, 1000);
+            answer = questionCreator();    
+        }else{
+            lives --;
+            checkLives();
+            document.getElementById("verdict").innerHTML="Incorrect";
+            document.getElementById("verdict").style.color=RED;
+            isAnswer = false;
+            document.body.style.backgroundColor = RED;
+            setTimeout(function() {
+                document.body.style.backgroundColor = DEFAULT_COLOR;
+                document.getElementById("verdict").innerHTML="";
+            }, 1000);
         }
-        //Display correct text on top, set background to green
-        document.body.style.backgroundColor = GREEN;
-        setTimeout(function() {
-            document.body.style.backgroundColor = DEFAULT_COLOR;
-            document.getElementById("verdict").innerHTML="";
-        }, 1000);
-        answer = questionCreator();    
-    }else{
-        lives --;
-        checkLives();
-        document.getElementById("verdict").innerHTML="Incorrect";
-        document.getElementById("verdict").style.color=RED;
-        isAnswer = false;
-        document.body.style.backgroundColor = RED;
-        setTimeout(function() {
-            document.body.style.backgroundColor = DEFAULT_COLOR;
-            document.getElementById("verdict").innerHTML="";
-        }, 1000);
-    }
     })
 }
 
@@ -315,6 +320,37 @@ function updateCurrentScore(){
     console.log("addScore: " + addScore);
     console.log("currentScore: " + currentScore);
     document.getElementById("currentScore").innerHTML = "Current Score: ".concat(currentScore);
+} 
+
+//setCookie method for HighScore
+function setCookie(name, value, days){
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + date.toGMTString();
+    document.cookie = name + "=" + value + ";" + expires + "SameSite=None" + ";" + "Secure";
+}
+
+//getCookie method for Highscore
+function getCookie(){
+    console.log(document.cookie);
+    if(document.cookie == null){
+        setCookie("HighScore", 0, 7);
+    }
+    let cookieArray = document.cookie;
+    let cookieArray2 = cookieArray.split(";")[2];
+    let num = cookieArray2.split("=")[1];
+    return num;
+}
+
+//function to set the highscore
+function setHighScore(){
+    let highScore = getCookie();
+    if(highScore < currentScore){
+        document.getElementById("highScore").innerHTML = "High Score: ".concat(currentScore);
+        setCookie("HighScore", currentScore, 7);
+    }else{
+        document.getElementById("highScore").innerHTML = "High Score: ".concat(highScore);
+    }
 }
 
 //fuunction that displays help message if user is in need of instruction of how the app works

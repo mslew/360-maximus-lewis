@@ -22,7 +22,7 @@ body {
   display: inline-block;
 }
 
-.score{
+.scores{
   position: absolute;
   text-align: right;
   color: white;
