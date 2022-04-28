@@ -146,16 +146,3 @@ body {
   padding: 1em;
   margin-left: 2em;
 }
-
-.help{
-  display: inline-block;
-  width: fit-content;
-  height: fit-content;
-}
-
-.helpText{
-  text-align: center;
-  position: relative;
-  white-space: pre-line;
-  font-size: 1.5vmin;
-}

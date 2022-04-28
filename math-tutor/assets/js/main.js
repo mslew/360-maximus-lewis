@@ -26,7 +26,8 @@ function startGame(){
 
 //resets the game 
 function resetGame(){
-    document.getElementById("heart3").style.display='block';
+    document.location.reload();
+    /**document.getElementById("heart3").style.display='block';
     document.getElementById("heart2").style.display='block';
     level = 1;
     lives = 3;
@@ -40,7 +41,7 @@ function resetGame(){
     document.getElementById("1").style.backgroundColor = ON_LEVEL_COLOR;
     document.getElementById("1").style.color = ON_LEVEL_COLOR;
     document.getElementById("currentScore").innerHTML = "Current Score: 0"
-    startGame();
+    questionCreator();**/
 }
 
 //this function will determine the level and will send the heavy lifting to other functions
@@ -166,7 +167,7 @@ function checkLevel(){
 
 //will return a random number in the range of 0 - max. 
 function generateRandomInt(max){
-    return Math.floor(Math.random() * (max + 1));
+    return Math.floor(Math.random() * (max - 1 + 1) + 1); //inclusive range. Math.random() * (max - min + 1) + min
 }
 
 //Level 1. Addition. Number Ranges: [0-9]
@@ -323,28 +324,34 @@ function updateCurrentScore(){
 } 
 
 //setCookie method for HighScore
-function setCookie(name, value, days){
-    var date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + date.toGMTString();
-    document.cookie = name + "=" + value + ";" + expires + "SameSite=None" + ";" + "Secure";
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
 
-//getCookie method for Highscore
-function getCookie(){
-    console.log(document.cookie);
-    if(document.cookie == null){
-        setCookie("HighScore", 0, 7);
+//function to get cookie
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
     }
-    let cookieArray = document.cookie;
-    let cookieArray2 = cookieArray.split(";")[2];
-    let num = cookieArray2.split("=")[1];
-    return num;
+    return null;
 }
 
 //function to set the highscore
 function setHighScore(){
-    let highScore = getCookie();
+    let highScore = getCookie("HighScore");
+    if(highScore == null){
+        setCookie("HighScore", 0, 7);
+    }
     if(highScore < currentScore){
         document.getElementById("highScore").innerHTML = "High Score: ".concat(currentScore);
         setCookie("HighScore", currentScore, 7);
@@ -362,8 +369,9 @@ function help(){
         "Enter the answer to the equation into the box.\n" + 
         "If you are correct the screen will turn green, if wrong the screen will turn red.\n"+
         "The arrow button will restart the tutoring process.\n Good Luck!";
-    document.getElementById("help").innerHTML = msg; 
-    setTimeout(function() {
-        document.getElementById("help").innerHTML = ""
-      }, 10000);  // 10 sec timeout funciton for help, could also refresh on any input
+    alert(msg);
+    //document.getElementById("help").innerHTML = msg; 
+    /**setTimeout(function() {
+        //document.getElementById("help").innerHTML = ""
+      }, 10000);  // 10 sec timeout funciton for help, could also refresh on any input**/
 }
