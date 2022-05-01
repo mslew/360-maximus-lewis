@@ -1,9 +1,9 @@
 # Final Project Math-Tutor
 
 ### Contributors
-<p><br>Max Lewis: maximusslewis@lewisu.edu</br></p>
-<p><br>Anthony Mastores: anthonyjmastores@lewisu.edu</br></p>
-
+<p>Max Lewis: maximusslewis@lewisu.edu</p>
+<p>Anthony Mastores: anthonyjmastores@lewisu.edu</p>
+<p></p>
 <p>This is a web application developed using HTML, CSS, and JavaScript. It is hosted here: https://cool-math-tutor.netlify.app/</p>
 <p>We planned to create a fun math tutoring app for children to better practice their math skills. In order to make this fun and
 enjoyable for children, we added a leveling system and a score system to better incentivize them. We believe that this project
